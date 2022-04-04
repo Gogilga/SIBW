@@ -6,6 +6,7 @@
     {% block central %}
     <section id="cuerpo">
         <section class="productos">
+            <!--Bucle para colocar los productos en el grid central-->
             {% for i in 0..numProductos-1 %}
                 <a href="producto.php?ev={{ i+1 }}" class="div1">
                     <article class="caja-principal">

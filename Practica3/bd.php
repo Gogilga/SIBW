@@ -33,6 +33,15 @@
     return $producto;
   }
 
+  function getNumFotos($idEv){
+    $mysqli= conexion();
+
+    $res = $mysqli->query("SELECT * FROM fotos WHERE id=" . $idEv);
+
+    return $res->num_rows;
+
+  }
+
   function getFotos($idEv){
     $mysqli= conexion();
 

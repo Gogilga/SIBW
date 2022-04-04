@@ -35,6 +35,8 @@
                           'reseña' => $s['reseña'],
       ]);
   }
+
+  $numFotos= getNumFotos($idEv);
   
-  echo $twig->render('producto.html', ['producto' => $producto, 'fotos' => $fotos, 'numReseñas' => $numReseñas, 'reseñas' => $reseñas]);
+  echo $twig->render('producto.html', ['producto' => $producto, 'fotos' => $fotos, 'numReseñas' => $numReseñas, 'reseñas' => $reseñas, 'numFotos' => $numFotos]);
 ?>

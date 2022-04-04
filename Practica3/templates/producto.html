@@ -13,12 +13,15 @@
                     <li id="slide1">
                         <img src="imagenes/{{ producto['foto'] }}"/>
                     </li>
-                    <li id="slide2">
-                        <img src="imagenes/{{ fotos['foto1'] }}"/>
-                    </li>
-                    <li id="slide3">
-                        <img src="imagenes/{{ fotos['foto2'] }}">
-                    </li>
+                    
+                    {% if numFotos != 0 %}
+                        <li id="slide2">
+                            <img src="imagenes/{{ fotos['foto1'] }}"/>
+                        </li>
+                        <li id="slide3">
+                            <img src="imagenes/{{ fotos['foto2'] }}">
+                        </li>
+                    {% endif %}
                     <!--<li id="slide3">
                         <h1>Ejemplo con otros elementos</h1>
                         <p>Esto es un párrafo de ejemplo para comprobar que podemos meter cualquier tipo de elementos en el slider</p>
@@ -29,12 +32,14 @@
                     <li>
                         <a href="#slide1">1</a>
                     </li>
-                    <li>
-                        <a href="#slide2">2</a>
-                    </li>
-                    <li>
-                        <a href="#slide3">3</a>
-                    </li>
+                    {% if numFotos != 0 %}
+                        <li>
+                            <a href="#slide2">2</a>
+                        </li>
+                        <li>
+                            <a href="#slide3">3</a>
+                        </li>
+                    {% endif %}
                     </ul>
                     
                 </div>
@@ -62,24 +67,30 @@
                 </article>
         
                 <section id="ventanareseñas">
-                    {% for i in 0..numReseñas-1 %}
+                    {% if numReseñas == 0 %}
                         <hr><br>
-                        <p><strong>Usuario: </strong> {{ reseñas[i]['usuario'] }}</p> <br>
-                        <p><strong>Fecha y hora: </strong> El {{ reseñas[i]['fecha'] }} </p> <br>
+                        <p><strong>No hay ninguna reseña </strong></p>
+                        <br><hr>
+                    {% else %}
+                        {% for i in 0..numReseñas-1 %}
+                            <hr><br>
+                            <p><strong>Usuario: </strong> {{ reseñas[i]['usuario'] }}</p> <br>
+                            <p><strong>Fecha y hora: </strong> El {{ reseñas[i]['fecha'] }} </p> <br>
 
-                        {% if reseñas[i]['puntuación'] == 1 %}
-                            <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
-                        {% elseif reseñas[i]['puntuación'] == 2 %}
-                            <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
-                        {% elseif reseñas[i]['puntuación'] == 3 %}
-                            <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
-                        {% elseif reseñas[i]['puntuación'] == 4 %}
-                            <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
-                        {% elseif reseñas[i]['puntuación'] == 5 %}
-                            <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></i> <br/><br></p>
-                        {% endif %}
+                            {% if reseñas[i]['puntuación'] == 1 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 2 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 3 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 4 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 5 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></i> <br/><br></p>
+                            {% endif %}
 
-                        <strong>Reseña: </strong> {{ reseñas[i]['reseña'] }}<br/><br/>
-                    {% endfor %}
+                            <strong>Reseña: </strong> {{ reseñas[i]['reseña'] }}<br/><br/>
+                        {% endfor %}
+                    {% endif %}
                 </section>
     {% endblock %}
