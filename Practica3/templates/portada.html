@@ -1,0 +1,24 @@
+{% extends "padre.html" %}
+    {% block titulo %}
+        Green
+    {% endblock %}
+
+    {% block central %}
+    <section id="cuerpo">
+        <section class="productos">
+            {% for i in 0..numProductos-1 %}
+                <a href="producto.php?ev={{ i+1 }}" class="div1">
+                    <article class="caja-principal">
+                        <div class="imagen">
+                            <img src="imagenes/{{ producto[i]['foto']  }}" alt="">
+                        </div>
+                        <div class="texto">
+                            <h2>{{ producto[i]['nombre'] }}</h2>
+                            <br>
+                            <p>{{ producto[i]['info'] }}</p>
+                        </div>
+                    </article>
+                </a>
+            {% endfor %}
+        </section>
+    {% endblock %}
