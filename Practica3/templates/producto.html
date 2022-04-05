@@ -44,9 +44,10 @@
                     
                 </div>
 
-                <a class="boton" href="producto_imprimir.html">Imprimir</a>
+                <a class="boton" href="producto_imprimir.php?ev={{ producto['id'] }}">Imprimir</a>
                 <a class="boton" id="reseñas" onclick="miFuncion()">Reseñas</a>
 
+                <!--Con la interfaz de isertar productos en la base de datos cambiaré el texto que ahora es común para todos-->
                 <article id="texto">
                     <p>BARRA de sal del Himalaya con forma de jabón, 300gr.</p> 
                     <p>Precio: 3€</p>
@@ -68,15 +69,16 @@
         
                 <section id="ventanareseñas">
                     {% if numReseñas == 0 %}
-                        <hr><br>
-                        <p><strong>No hay ninguna reseña </strong></p>
-                        <br><hr>
+                        <br>
+                        <p><strong>No hay todavía ninguna reseña para este producto</strong></p>
+                        <br>
                     {% else %}
                         {% for i in 0..numReseñas-1 %}
                             <hr><br>
                             <p><strong>Usuario: </strong> {{ reseñas[i]['usuario'] }}</p> <br>
-                            <p><strong>Fecha y hora: </strong> El {{ reseñas[i]['fecha'] }} </p> <br>
+                            <p><strong>Fecha y hora: </strong> {{ reseñas[i]['fecha'] }} </p> <br>
 
+                            <!--Para el sistema de putuación por estrellas-->
                             {% if reseñas[i]['puntuación'] == 1 %}
                                 <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
                             {% elseif reseñas[i]['puntuación'] == 2 %}

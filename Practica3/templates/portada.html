@@ -8,15 +8,15 @@
         <section class="productos">
             <!--Bucle para colocar los productos en el grid central-->
             {% for i in 0..numProductos-1 %}
-                <a href="producto.php?ev={{ i+1 }}" class="div1">
+                <a href="producto.php?ev={{ productos[i]['id'] }}" class="div1">
                     <article class="caja-principal">
                         <div class="imagen">
-                            <img src="imagenes/{{ producto[i]['foto']  }}" alt="">
+                            <img src="imagenes/{{ productos[i]['foto']  }}" alt="">
                         </div>
                         <div class="texto">
-                            <h2>{{ producto[i]['nombre'] }}</h2>
+                            <h2>{{ productos[i]['nombre'] }}</h2>
                             <br>
-                            <p>{{ producto[i]['info'] }}</p>
+                            <p>{{ productos[i]['info'] }}</p>
                         </div>
                     </article>
                 </a>

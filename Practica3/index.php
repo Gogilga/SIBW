@@ -7,24 +7,7 @@
 
   $numProductos= getNumProductos();
 
-  if($numProductos > 0){
-    $s= getProducto(1);
+  $productos= getProductosPortada($numProductos);
 
-    $producto= [[
-              'nombre' => $s['nombre'],
-              'info' => $s['info'],
-              'foto' => $s['foto'],
-      ]];
-  }
-
-  for ($i = 2; $i <= $numProductos; $i++) {
-    $s= getProducto($i);
-
-    array_push($producto, ['nombre' => $s['nombre'],
-                           'info' => $s['info'],
-                           'foto' => $s['foto'],
-      ]);
-  }
-
-  echo $twig->render('portada.html', ['producto' => $producto, 'numProductos' => $numProductos]);
+  echo $twig->render('portada.html', ['productos' => $productos, 'numProductos' => $numProductos]);
 ?>

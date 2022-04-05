@@ -6,7 +6,9 @@
         <title>{% block titulo %}{% endblock %}</title>
         <!--Script para incluir el kit de fontawesome para los iconos-->
         <script src="https://kit.fontawesome.com/ae8a26a94d.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        {% block head %}
+            <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        {% endblock %}
         <link rel="ico" href="favicon.ico"/>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">

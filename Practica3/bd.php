@@ -17,17 +17,44 @@
     return $res->num_rows;
   }
 
+  //Funcion para obtener todos los productos para la portada
+  function getProductosPortada($numProductos){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("SELECT * FROM producto limit ?");
+    $sentencia->bind_param('i', $numProductos);
+    $sentencia->execute();
+    $res= $sentencia->get_result();
+    
+    $productos= Array();
+
+    if ($res->num_rows > 0){
+      for($i = 0; $i <= $numProductos; $i++){
+        $row = $res->fetch_assoc();
+
+        array_push($productos, ['id' => $row['id'], 'nombre' => $row['nombre'], 'info' => $row['info'], 'foto' => $row['foto']]);
+      }
+    }
+
+    return $productos;
+  }
+
   function getProducto($idEv) {
     $mysqli= conexion();
 
-    $res = $mysqli->query("SELECT nombre, info, contenido, foto FROM producto WHERE id=" . $idEv);
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("SELECT id, nombre, info, contenido, foto FROM producto WHERE id=?");
+    $sentencia->bind_param('i', $idEv);
+    $sentencia->execute();
+    $res= $sentencia->get_result();
     
-    $producto = array('nombre' => 'XXX', 'info' => 'YYY', 'contenido' => 'ZZZ', 'foto' => 'AAA');
+    $producto = array('id' => 'HHH', 'nombre' => 'XXX', 'info' => 'YYY', 'contenido' => 'ZZZ', 'foto' => 'AAA');
     
     if ($res->num_rows > 0) {
       $row = $res->fetch_assoc();
       
-      $producto = array('nombre' => $row['nombre'], 'info' => $row['info'], 'contenido' => $row['contenido'], 'foto' => $row['foto']);
+      $producto = array('id' => $row['id'], 'nombre' => $row['nombre'], 'info' => $row['info'], 'contenido' => $row['contenido'], 'foto' => $row['foto']);
     }
     
     return $producto;
@@ -36,7 +63,11 @@
   function getNumFotos($idEv){
     $mysqli= conexion();
 
-    $res = $mysqli->query("SELECT * FROM fotos WHERE id=" . $idEv);
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("SELECT * FROM fotos WHERE id=?");
+    $sentencia->bind_param('i', $idEv);
+    $sentencia->execute();
+    $res= $sentencia->get_result();
 
     return $res->num_rows;
 
@@ -45,7 +76,12 @@
   function getFotos($idEv){
     $mysqli= conexion();
 
-    $res = $mysqli->query("SELECT foto1, foto2 FROM fotos WHERE id=" . $idEv);
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("SELECT foto1, foto2 FROM fotos WHERE id=?");
+    $sentencia->bind_param('i', $idEv);
+    $sentencia->execute();
+    $res= $sentencia->get_result();
+    
 
     $fotos = array('foto1' => 'XXX', 'foto2' => 'YYY');
 
@@ -61,7 +97,11 @@
   function getNumReseñas($idEv){
     $mysqli= conexion();
 
-    $res = $mysqli->query("SELECT * FROM reseñas WHERE id=" . $idEv);
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("SELECT * FROM reseñas WHERE id=?");
+    $sentencia->bind_param('i', $idEv);
+    $sentencia->execute();
+    $res= $sentencia->get_result();
 
     return $res->num_rows;
   }
@@ -69,7 +109,15 @@
   function getReseñas($idEv){
     $mysqli= conexion();
 
-    $res = $mysqli->query("SELECT usuario, fecha, puntuación, reseña FROM reseñas WHERE idReseña=" . $idEv);
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    //Con date_format(fecha, 'El %d-%m-%Y a las %H:%m') AS fecha es para formatear la fecha y que aparezca en orden
+    $sentencia= $mysqli->prepare("SELECT usuario, date_format(fecha, 'El %d-%m-%Y a las %H:%m') AS fecha, puntuación, reseña FROM reseñas WHERE idReseña=?");
+    $sentencia->bind_param('i', $idEv);
+    $sentencia->execute();
+    $res= $sentencia->get_result();
+
+    //Sentencia para formatear la fecha
+    //select date_format(fecha, "El %d-%m-%Y a las %H:%m") AS fecha from reseñas
 
     $reseñas = array('usuario' => 'XXX', 'fecha' => 'YYY', 'puntuación' => 'ZZZ', 'reseña' => 'AAA');
 
