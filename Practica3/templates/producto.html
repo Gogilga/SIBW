@@ -95,10 +95,10 @@
                     {% endif %}
                 </section>
 
-                {# Add a custom named data attribute containing your data #}
+                {# Añado las palabras censuradas para poder cogerlas después con javaScript #}
                 {% for entry in censura %}
-                    <a id="censura" href="{{ entry.link }}" data-entry-id="{{ entry.palabra }}">
+                    <p class="censura" data-entry-id="{{ entry.palabra }}">
                         {{ entry.palabra }}
-                    </a>
+                    </p>
                 {% endfor %}
     {% endblock %}

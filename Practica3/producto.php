@@ -18,9 +18,8 @@
   $reseñas= getReseñas($idEv);
   $numReseñas= getNumReseñas($idEv);
 
-  $palabras= getCensura();
-
+  //Para obtener las palabras censuradas
   $censura= getCensura();
   
-  echo $twig->render('producto.html', ['producto' => $producto, 'fotos' => $fotos, 'numReseñas' => $numReseñas, 'reseñas' => $reseñas, 'numFotos' => $numFotos, 'palabras' => $palabras, 'censura' => $censura]);
+  echo $twig->render('producto.html', ['producto' => $producto, 'fotos' => $fotos, 'numReseñas' => $numReseñas, 'reseñas' => $reseñas, 'numFotos' => $numFotos, 'censura' => $censura]);
 ?>
