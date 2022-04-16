@@ -12,31 +12,15 @@
   }
    
   $producto = getProducto($idEv);
+  $numFotos= getNumFotos($idEv);
   $fotos= getFotos($idEv);
 
+  $reseñas= getReseñas($idEv);
   $numReseñas= getNumReseñas($idEv);
-  if($numReseñas > 0){
-    $s= getReseñas(1);
 
-    $reseñas= [[
-              'usuario' => $s['usuario'],
-              'fecha' => $s['fecha'],
-              'puntuación' => $s['puntuación'],
-              'reseña' => $s['reseña'],
-      ]];
-  }
+  $palabras= getCensura();
 
-  for ($i = 2; $i <= $numReseñas; $i++) {
-    $s= getReseñas($i);
-
-    array_push($reseñas, ['usuario' => $s['usuario'],
-                          'fecha' => $s['fecha'],
-                          'puntuación' => $s['puntuación'],
-                          'reseña' => $s['reseña'],
-      ]);
-  }
-
-  $numFotos= getNumFotos($idEv);
+  $censura= getCensura();
   
-  echo $twig->render('producto.html', ['producto' => $producto, 'fotos' => $fotos, 'numReseñas' => $numReseñas, 'reseñas' => $reseñas, 'numFotos' => $numFotos]);
+  echo $twig->render('producto.html', ['producto' => $producto, 'fotos' => $fotos, 'numReseñas' => $numReseñas, 'reseñas' => $reseñas, 'numFotos' => $numFotos, 'palabras' => $palabras, 'censura' => $censura]);
 ?>

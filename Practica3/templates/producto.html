@@ -10,17 +10,16 @@
                 <!--Slider de fotos-->
                 <div id="fotos">
                     <ul class="slider">
-                    <li id="slide1">
+                    <li id="slide0">
                         <img src="imagenes/{{ producto['foto'] }}"/>
                     </li>
-                    
+
                     {% if numFotos != 0 %}
-                        <li id="slide2">
-                            <img src="imagenes/{{ fotos['foto1'] }}"/>
-                        </li>
-                        <li id="slide3">
-                            <img src="imagenes/{{ fotos['foto2'] }}">
-                        </li>
+                        {% for i in 0..numFotos-1 %}
+                            <li id="slide{{ i+1 }}">
+                                <img src="imagenes/{{ fotos[i]['foto'] }}"/>
+                            </li>
+                        {% endfor %}
                     {% endif %}
                     <!--<li id="slide3">
                         <h1>Ejemplo con otros elementos</h1>
@@ -30,15 +29,15 @@
                     
                     <ul class="menu">
                     <li>
-                        <a href="#slide1">1</a>
+                        <a href="#slide0">1</a>
                     </li>
+
                     {% if numFotos != 0 %}
-                        <li>
-                            <a href="#slide2">2</a>
-                        </li>
-                        <li>
-                            <a href="#slide3">3</a>
-                        </li>
+                        {% for i in 0..numFotos-1 %}
+                            <li>
+                                <a href="#slide{{ i+1 }}">{{ i+2 }}</a>
+                            </li>
+                        {% endfor %}
                     {% endif %}
                     </ul>
                     
@@ -47,7 +46,7 @@
                 <a class="boton" href="producto_imprimir.php?ev={{ producto['id'] }}">Imprimir</a>
                 <a class="boton" id="reseñas" onclick="miFuncion()">Reseñas</a>
 
-                <!--Con la interfaz de isertar productos en la base de datos cambiaré el texto que ahora es común para todos-->
+                <!--Con la interfaz de isertar productos en la base de datos cambiaré el texto que ahora es común para todos los productos-->
                 <article id="texto">
                     <p>BARRA de sal del Himalaya con forma de jabón, 300gr.</p> 
                     <p>Precio: 3€</p>
@@ -95,4 +94,11 @@
                         {% endfor %}
                     {% endif %}
                 </section>
+
+                {# Add a custom named data attribute containing your data #}
+                {% for entry in censura %}
+                    <a id="censura" href="{{ entry.link }}" data-entry-id="{{ entry.palabra }}">
+                        {{ entry.palabra }}
+                    </a>
+                {% endfor %}
     {% endblock %}

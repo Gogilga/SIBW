@@ -64,7 +64,7 @@
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("SELECT * FROM fotos WHERE id=?");
+    $sentencia= $mysqli->prepare("SELECT * FROM fotos WHERE idProducto=?");
     $sentencia->bind_param('i', $idEv);
     $sentencia->execute();
     $res= $sentencia->get_result();
@@ -77,20 +77,23 @@
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("SELECT foto1, foto2 FROM fotos WHERE id=?");
+    $sentencia= $mysqli->prepare("SELECT foto FROM fotos WHERE idProducto=?");
     $sentencia->bind_param('i', $idEv);
     $sentencia->execute();
     $res= $sentencia->get_result();
-    
 
-    $fotos = array('foto1' => 'XXX', 'foto2' => 'YYY');
+    $numFotos= getNumFotos($idEv);
 
-    if($res->num_rows > 0) {
-      $row = $res->fetch_assoc();
-      
-      $fotos = array('foto1' => $row['foto1'], 'foto2' => $row['foto2']);
+    $fotos= Array();
+
+    if ($res->num_rows > 0){
+      for($i = 0; $i <= $numFotos; $i++){
+        $row = $res->fetch_assoc();
+
+        array_push($fotos, ['foto' => $row['foto']]);
+      }
     }
-    
+
     return $fotos;
   }
 
@@ -98,7 +101,7 @@
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("SELECT * FROM reseñas WHERE id=?");
+    $sentencia= $mysqli->prepare("SELECT * FROM reseñas WHERE idProducto=?");
     $sentencia->bind_param('i', $idEv);
     $sentencia->execute();
     $res= $sentencia->get_result();
@@ -110,23 +113,47 @@
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    //Con date_format(fecha, 'El %d-%m-%Y a las %H:%m') AS fecha es para formatear la fecha y que aparezca en orden
-    $sentencia= $mysqli->prepare("SELECT usuario, date_format(fecha, 'El %d-%m-%Y a las %H:%m') AS fecha, puntuación, reseña FROM reseñas WHERE idReseña=?");
+    //Con date_format(fecha, 'El %d-%m-%Y a las %H:%i') AS fecha es para formatear la fecha y que aparezca en orden
+    $sentencia= $mysqli->prepare("SELECT usuario, date_format(fecha, 'El %d-%m-%Y a las %H:%i') AS fecha, puntuación, reseña FROM reseñas WHERE idProducto=?");
     $sentencia->bind_param('i', $idEv);
     $sentencia->execute();
     $res= $sentencia->get_result();
 
-    //Sentencia para formatear la fecha
-    //select date_format(fecha, "El %d-%m-%Y a las %H:%m") AS fecha from reseñas
+    $numReseñas= getNumReseñas($idEv);
 
-    $reseñas = array('usuario' => 'XXX', 'fecha' => 'YYY', 'puntuación' => 'ZZZ', 'reseña' => 'AAA');
+    $reseñas= Array();
 
-    if($res->num_rows > 0) {
-      $row = $res->fetch_assoc();
-      
-      $reseñas = array('usuario' => $row['usuario'], 'fecha' => $row['fecha'], 'puntuación' => $row['puntuación'], 'reseña' => $row['reseña']);
+    if ($res->num_rows > 0){
+      for($i = 0; $i <= $numReseñas; $i++){
+        $row = $res->fetch_assoc();
+
+        array_push($reseñas, ['usuario' => $row['usuario'], 'fecha' => $row['fecha'], 'puntuación' => $row['puntuación'], 'reseña' => $row['reseña']]);
+      }
     }
-    
+
     return $reseñas;
+  }
+
+  function getCensura(){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("SELECT palabra FROM censuras");
+    $sentencia->execute();
+    $res= $sentencia->get_result();
+
+    $numPalabras= $res->num_rows;
+
+    $palabras= Array();
+
+    if ($res->num_rows > 0){
+      for($i = 0; $i <= $numPalabras; $i++){
+        $row = $res->fetch_assoc();
+
+        array_push($palabras, ['palabra' => $row['palabra']]);
+      }
+    }
+
+    return $palabras;
   }
 ?>

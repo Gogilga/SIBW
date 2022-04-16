@@ -1,7 +1,37 @@
 var nombre= "", email= "", estrellas= "", descrip= "";
 
 //Diccionario de palabras para censurar
-var palabrasMal = ["puta","puto","maricas","mierda","asco"];
+//var llamar = '<?php echo getCensura();?>';
+//var palabrasMal= JSON.parse(misPalabras);
+//var palabrasMal = JSON.parse('<?php echo json_encode($misPalabras); ?>');
+var palabrasMal=[];
+
+
+/**
+ * Grab data attributes with vanilla JavaScript (ES6)
+ */
+ document.addEventListener('DOMContentLoaded', () => {
+
+  // Select elements by their data attribute
+  const entryElements =
+      document.querySelectorAll('[data-entry-id]');
+
+  // Map over each element and extract the data value
+  /*const palabras =
+      Array.from(entryElements).map(
+         item.dataset.entryId;
+      );*/
+
+  palabrasMal= Array.from(entryElements);
+
+  console.log(entryElements);
+
+
+  // You'll now have an array containing string values
+  console.log(palabrasMal); // eg: ["1", "2", "3"]
+});
+
+//var palabrasMal = ["puta","puto","maricas","mierda","asco"];
 
 //Todo esto es para hacerlo síncorno, y hasta que no termina el swal.fire no sigue con el if
 //Esto sirve para obtener valores del swal.fire
