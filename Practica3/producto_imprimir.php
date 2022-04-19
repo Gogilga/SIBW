@@ -12,6 +12,7 @@
   }
    
   $producto = getProducto($idEv);
+  $numFotos= getNumFotos($idEv);
   $fotos= getFotos($idEv);
 
   $numFotos= getNumFotos($idEv);
