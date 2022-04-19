@@ -1,0 +1,70 @@
+{% extends "padre.html" %}
+    {% block titulo %}
+        {{ producto['nombre'] }} imprimir
+    {% endblock %}
+
+    {% block head %}   
+        <link rel="stylesheet" type="text/css" href="css/stylePrint.css"/>
+    {% endblock %}
+
+    {% block central %}
+        <section class="producto">
+            <h1 id="tit">{{ producto['nombre'] }}</h1>
+
+            <a class="boton" href="producto_imprimir.html">Imprimir</a>
+            <section class="prod">
+                <!--Slider de fotos-->
+                <div id="fotos">
+                    <ul class="slider">
+                    <li id="slide0">
+                        <img src="imagenes/{{ producto['foto'] }}"/>
+                    </li>
+                    {% if numFotos != 0 %}
+                        {% for i in 0..numFotos-1 %}
+                            <li id="slide{{ i+1 }}">
+                                <img src="imagenes/{{ fotos[i]['foto'] }}"/>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    <!--<li id="slide3">
+                        <h1>Ejemplo con otros elementos</h1>
+                        <p>Esto es un párrafo de ejemplo para comprobar que podemos meter cualquier tipo de elementos en el slider</p>
+                    </li>-->
+                    </ul>
+                    
+                    <ul class="menu">
+                    <li>
+                        <a href="#slide0">1</a>
+                    </li>
+                    {% if numFotos != 0 %}
+                        {% for i in 0..numFotos-1 %}
+                            <li>
+                                <a href="#slide{{ i+1 }}">{{ i+2 }}</a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+                    
+                </div>
+
+                <article id="texto">
+                    <p>BARRA de sal del Himalaya con forma de jabón, 300gr.</p> 
+                    <p>Precio: 3€</p>
+                        
+                    <p> Desodorante y exfoliante 100% natural que aporta los beneficios de sus minerales a la piel, pero en un formato cómodo para el uso diario. El bloque de sal se selecciona y pule a mano para darle la forma de jabón (no contiene jabón, es sólo sal). En cocina elimina el olor de pescado, ajo o cebolla de las manos.</p>
+                    <p> Algunos usos: </p> 
+                    <p> 1- Desodorante: </p> 
+                    <p> Moja ligeramente la piedra, frotala con las manos y usa ese agua en axilas, pies o cualquier parte del cuerpo. En una solución de sal ninguna bacteria sobrevive, ayuda a impedir el olor y la formación de bacterias. No tapa los poros, no es antitranspirante.</p> 
+                        
+                    <p> 2. Baño de sal: </p> 
+                    <p> Dejar que el jabón se disuelva parcialmente en agua caliente. Usar el agua rica en minerales para relajar y nutrir la piel, puede añadir un aceite esencial. </p> 
+                        
+                    <p> 3. Exfoliación: </p>
+                    <p> Frotar suavemente pies, codos o callosidades con la barra de sal, previamente humedecida entre las manos con agua tibia y un aceite, aceite esencial o jabón. Su uso directo en otras zonas puede resultar abrasivo. </p>  
+                        
+                    <p> Beneficios: </p>  
+                    <p> Relaja, exfolia, mejora la circulación, combate la celulitis y la retención de líquidos, reduce calambres, tirones, dolores reumáticos, la migraña, el acné, equilibra el ph de la piel y desodoriza. </p>
+                </article>
+
+            </section>
+    {% endblock %}

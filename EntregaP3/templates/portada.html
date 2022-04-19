@@ -1,0 +1,25 @@
+{% extends "padre.html" %}
+    {% block titulo %}
+        Green
+    {% endblock %}
+
+    {% block central %}
+    <section id="cuerpo">
+        <section class="productos">
+            <!--Bucle para colocar los productos en el grid central-->
+            {% for i in 0..numProductos-1 %}
+                <a href="producto.php?ev={{ productos[i]['id'] }}" class="div1">
+                    <article class="caja-principal">
+                        <div class="imagen">
+                            <img src="imagenes/{{ productos[i]['foto']  }}" alt="">
+                        </div>
+                        <div class="texto">
+                            <h2>{{ productos[i]['nombre'] }}</h2>
+                            <br>
+                            <p>{{ productos[i]['info'] }}</p>
+                        </div>
+                    </article>
+                </a>
+            {% endfor %}
+        </section>
+    {% endblock %}
