@@ -1,0 +1,611 @@
+*{
+	margin:0;
+	padding:0;
+	font-family: 'Quicksand', sans-serif;
+}
+
+body{
+    background: rgba(100, 193, 150, 0.164);
+	min-height: 100%;
+}
+
+header{
+	background-color: #fff;
+}
+
+#portada{
+	position: relative;
+	align-items: center;
+	text-align: center;
+}
+
+#logo{
+	width: 39em;
+	/*width: 35%;*/
+	margin-top: 1%;
+}
+
+.navbar {
+	/*background: rgba(101, 131, 97, 0.26);*/
+	margin-top: 1%;
+	top: 0;
+}
+
+.navbar a {
+	color: #fff;
+	display: inline-block;
+	padding: 20px;
+	width: 100%;
+	text-align: center;
+	color: #000;
+	transition: .3s ease-out all;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.navbar a:hover {
+	/*background-color: rgba(159, 207, 153, 0.329);*/
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background-color: rgba(100, 193, 150, 0.164);
+}
+
+.contenedor {
+	max-width: 1000px;
+	width: 90%;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+	font-size: 140%;
+}
+
+.indice li {
+  float: left;
+  margin: 0;
+  padding: 0% 4% 0% 4%;
+  font-size: 1em;
+  color:rgb(77, 77, 81);
+}
+
+#cuerpo{
+	width: 100%;
+	display: grid;
+	grid-template-areas: "productos menudecha";
+}
+
+.productos{
+	grid-area: productos;
+	position: relative;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	display: grid;
+	/*width: 70%;*/
+	width: 82rem;
+	height: 100%;
+	grid-template-columns: 33% 33% 33%;
+	grid-row-gap: 40px;
+}
+
+/* Menu de la derecha */
+#menudecha{
+	grid-area: menudecha;
+	margin-top: 6%;
+	position: relative;
+	background-color: #fff;
+	margin-bottom: 2%;
+	border-radius: 10px;
+	margin-right: 10%;
+	font-size: 135%;
+	padding-bottom: 7%;
+	padding: 1%;
+	width: 25rem;
+}
+
+#menudecha > h1{
+	text-align: center;
+	font-size: 175%;
+	padding: 2%;
+}
+
+#menudecha > ul > li > a{
+	text-decoration: none;
+	color: #000;
+}
+
+#menudecha > ul > li > a:hover{
+	color: rgb(101, 131, 97);
+	font-weight: bold;
+}
+
+.menu{
+	margin-left: 14%;
+	line-height: 154%;
+}
+
+.titulomenu{
+	font-size: 155%;
+	margin-left: 6%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+
+.menu > ul{
+	list-style:none;
+}
+
+/*Icono para el li del aside*/
+#menudecha > ul > li:before {
+	content: "\f4d8"; /* FontAwesome Unicode */
+	color: rgb(101, 131, 97);
+	font-family: FontAwesome;
+	display: inline-block;
+	font-weight: 400;
+	margin-left: -1.3em;
+	width: 1.3em;
+  }
+
+.div1{
+	text-decoration: none;
+	color: black;
+	margin: 0%;
+}
+
+.div1:hover{
+	transform: scale(1.05);
+	transition: .3s ease-out all;
+}
+
+.productos h2{
+	text-align: center;
+}
+
+.productos p{
+	text-align: justify;
+}
+
+.caja-principal{
+	width: 22em;
+	max-width: 31.25em;
+	/*background-color: rgba(159, 207, 153, 0.329);*/
+	/*background-color: rgba(100, 193, 150, 0.164);*/
+	background-color: #fff;
+	/*border: solid;
+	border-width: 100%;
+	border-color: rgba(100, 193, 150, 0.315);*/
+	border-radius: 10px;
+	padding: 10px 20px;
+	display: flex;
+	align-items: center;
+	margin-left: 10%;
+	/*box-shadow: 0px 15px 25px rgba(0,0,0,0.50);*/
+}
+
+.caja-principal:hover{
+	/*background-color: rgba(100, 193, 150, 0.315);*/
+	background-color: rgba(100, 193, 150, 0.164);
+}
+
+.caja-principal .texto{
+	margin-left: 3%;
+}
+	
+.imagen{
+	flex-shrink: 0;
+	width: 150px;
+	float: left;
+}
+	
+.imagen img{
+	width: 100%;
+}
+
+.censura{
+	display: none;
+}
+
+footer{
+	clear: both;
+	margin-top: 4%;
+	align-items: center;
+}
+
+.fa-copyright{
+	position: absolute;
+	align-items: center;
+	left: 50%;
+	transform:translate(-50%,320%);
+}
+
+/* ------- Para las redes --------- */
+/* -------------------------------- */
+#redes{
+	display: inline-block;
+	position:absolute;
+	left:50%;
+	-ms-transform:translate(-50%,-50%);
+	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
+	margin-top: 1%;
+}
+
+/* Icons */
+
+#redes a {
+	color:#fff;
+	background: rgb(100, 193, 150);
+	border-radius:4px;
+	text-align:center;
+	text-decoration:none;
+	font-family:fontawesome;
+	position: relative;
+	display: inline-block;
+	width:40px;
+	height:28px;
+	padding-top:12px;
+	margin:0 2px;
+	-o-transition:all .5s;
+	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
+	transition: all .5s;
+	 -webkit-font-smoothing: antialiased;
+}
+  
+ #redes a:hover {
+	/*background: #ef92a3;*/
+	background: transparent;
+	color: rgb(100, 193, 150);
+}
+
+/* pop-up text */
+
+#redes a span {
+	color:#666;
+	position:absolute;
+	font-family:sans-serif;
+	bottom:0;
+	left:-25px;
+	right:-25px;
+	padding:5px 7px;
+	z-index:-1;
+	font-size:14px;
+	border-radius:2px;
+	/*background:rgb(245, 245, 245);*/
+	background: #fff;
+	visibility:hidden;
+	opacity:0;
+	-o-transition:all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	-webkit-transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	-moz-transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  /* pop-up text arrow */
+  
+  #redes a span:before {
+	content:'';
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #fff;
+	position:absolute;
+	bottom:-5px;
+	left:40px;
+  }
+  
+  /* text pops up when icon is in hover state */
+  
+  #redes a:hover span {
+	bottom:50px;
+	visibility:visible;
+	opacity:1;
+  }
+  
+  /* font awesome icons */
+  
+  #redes a:nth-of-type(1):before {
+  content:'\f09a';
+  }
+  #redes a:nth-of-type(2):before {
+  content:'\f099';
+  }
+  #redes a:nth-of-type(3):before {
+  content:'\f16d';
+  }
+  #redes a:nth-of-type(4):before {
+  content:'\f0e0';
+  }
+
+
+  /* ----- Para producto.html ----- */
+  #tit{
+	  margin-bottom: 1%;
+  }
+
+.producto{
+	position: relative;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	width: 95%;
+	height: 100%;
+	display: grid;
+	grid-template-areas: "tit tit tit"
+						"fotos texto menudecha"
+						"imprimir texto menudecha";
+
+	grid-template-columns: 30% 47% 20%;
+	margin-left: 1%;
+}
+
+#tit{
+	grid-area: tit;
+	font-size: 250%;
+}
+
+
+.producto > #texto{
+	grid-area: texto;
+	text-align: justify;
+	font-size: 110%;
+	position: relative;
+	font-weight: bold;
+	margin-right: 12%;
+}
+
+.producto > #texto > p{
+	padding: 1%;
+}
+
+/* --------- slider para fotos --------- */
+
+#fotos{
+	grid-area: fotos;
+	font-family: sans-serif;
+	margin: auto;
+	background-color: white;
+	max-width: 500px;
+	width: 100%;
+	padding: 30px;
+	box-sizing: border-box;
+	border-radius: 10px;
+	float: left;
+	position: absolute;
+	/*box-shadow: 0px 15px 25px rgba(0,0,0,0.50);*/
+  }
+  
+  #fotos > ul, li {
+	  padding: 0;
+	  margin: 0;
+	  list-style: none;
+  }
+  
+  #fotos > ul.slider{
+	position: relative;
+	max-width: 800px;
+	width: 100%;
+	height: 300px;
+  }
+  
+  #fotos > ul.slider h1{
+	position: absolute;
+	background-color: rgba(255, 255, 255, 0.6);
+	padding: 10px;
+	left: 50%;
+	top: 100px;
+	transform: translate(-50%, -50%);
+  }
+  
+  #fotos > ul.slider li {
+	  position: absolute;
+	  left: 0px;
+	  top: 0px;
+	  opacity: 0;
+	  width: inherit;
+	  height: inherit;
+	  transition: opacity .5s;
+	  background:#fff;
+  }
+  
+  #fotos > ul.slider li img{
+	width: 50%;
+	height: 300px;
+	object-fit: cover;
+	/*Centrar la imagen*/
+	margin-left: 25%;
+  }
+  
+  #fotos > ul.slider li:first-child {
+	  opacity: 1; /*Mostramos el primer <li>*/
+  }
+  
+  #fotos > ul.slider li:target {
+	  opacity: 1; /*Mostramos el <li> del enlace que pulsemos*/
+  }
+  
+  #fotos > .menu{
+	text-align: center;
+	margin: 20px;
+  }
+  
+  #fotos > .menu li{
+	display: inline-block;
+	text-align: center;
+  }
+  
+  #fotos > .menu li a{
+	display: inline-block;
+	color: white;
+	text-decoration: none;
+	background-color: grey;
+	padding: 10px;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	border-radius: 100%;
+  }
+/* --------- Termina slider de fotos --------- */
+
+.boton{
+	position: absolute;
+	text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: rgb(100, 193, 150);
+    border-radius: 6px;
+    border: 2px solid rgb(84, 185, 138);
+	transition: .3s ease-out all;
+	transform:translate(0%,1100%);
+}
+
+.boton:hover{
+	color: rgb(100, 193, 150);
+    background-color: transparent;
+}
+
+#reseñas{
+	transform: translate(110%,1100%);
+}
+
+#reseñas:hover{
+	cursor: pointer;
+}
+
+#ventanareseñas{
+	display: none;
+}
+
+#descript{
+	width: 300px;
+	height: 150px;
+  }
+
+.boton2{
+	position: absolute;
+	text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: rgb(100, 193, 150);
+    border-radius: 6px;
+    border: 2px solid rgb(84, 185, 138);
+	transition: .3s ease-out all;
+}
+
+.fa-star, .fa-star-half-stroke{
+	color: rgb(255, 164, 28);
+}
+
+.textformulario{
+	font-size: 110%;
+	font-weight: bold;
+}
+
+/*--- Para el range del formulario de añadir reseña ---*/
+#valor {
+	position: relative;
+	display: block;
+	text-align: center;
+	font-size: 2em;
+	color: #999;
+	font-weight: 400;
+  }
+  #estrellas {
+	width: 400px;
+	height: 15px;
+	-webkit-appearance: none;
+	background: #111;
+	outline: none;
+	border-radius: 15px;
+	overflow: hidden;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+  }
+  #estrellas::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background: rgb(100, 193, 150);
+	cursor: pointer;
+	border: 4px solid #333;
+	box-shadow: -407px 0 0 400px rgb(100, 193, 150);
+  }
+  /*---------------------------------------------------*/
+
+@media only screen and (max-width: 1650px){
+	body{
+		zoom: 80%;
+	}
+}
+
+@media only screen and (max-width: 1500px) {
+	body {
+	  zoom: 100%;
+	}
+
+	#cuerpo{
+		grid-template-areas: "productos"
+							 "menudecha";
+	}
+
+	#menudecha{
+		margin-top: 3%;
+		margin-left: 3%;
+		width: 77rem;
+	}
+
+	.producto{
+		grid-template-areas: "tit tit"
+							"fotos texto"
+							"imprimir texto"
+							"menudecha menudecha";
+	}
+
+	.producto > #texto{
+		margin-left: 12%;
+	}
+}
+
+@media only screen and (max-width: 1300px) {
+	/*body {
+	  zoom: 80%;
+	}*/
+
+	
+	.productos{
+		grid-template-columns: 33% 33%;
+	}
+
+	#menudecha{
+		margin-top: 3%;
+		margin-left: 3%;
+		width: 50rem;
+	}
+
+	.producto{
+		grid-template-areas: "tit"
+							"fotos"
+							"imprimir"
+							"texto"
+							"menudecha";
+	}
+}
+
+
+@media only screen and (max-width: 700px) {
+	/*body {
+	  zoom: 80%;
+	}*/
+
+	.productos{
+		grid-template-columns: 33%;
+	}
+
+	#menudecha{
+		margin-top: 3%;
+		margin-left: 3%;
+		width: 23rem;
+	}
+}

@@ -1,0 +1,112 @@
+{% extends "padre.html" %}
+    {% block titulo %}
+        {{ producto['nombre'] }}
+    {% endblock %}
+
+    {% block sesion %}
+        {% if not variablesParaTwig.user %}
+            <a href="#" onclick="iniciarSesion()">Iniciar sesion</a>
+        {% else %}
+            <a href="#" onclick="cerrarSesion()">{{ variablesParaTwig['user']['nick'] }}</a>
+        {% endif %}
+    {% endblock %}
+
+    {% block central %}
+        <section class="producto">
+            <h1 id="tit">{{ producto['nombre'] }}</h1>
+
+                <!--Slider de fotos-->
+                <div id="fotos">
+                    <ul class="slider">
+                    <li id="slide0">
+                        <img src="imagenes/{{ producto['foto'] }}"/>
+                    </li>
+
+                    {% if numFotos != 0 %}
+                        {% for i in 0..numFotos-1 %}
+                            <li id="slide{{ i+1 }}">
+                                <img src="imagenes/{{ fotos[i]['foto'] }}"/>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    <!--<li id="slide3">
+                        <h1>Ejemplo con otros elementos</h1>
+                        <p>Esto es un párrafo de ejemplo para comprobar que podemos meter cualquier tipo de elementos en el slider</p>
+                    </li>-->
+                    </ul>
+                    
+                    <ul class="menu">
+                    <li>
+                        <a href="#slide0">1</a>
+                    </li>
+
+                    {% if numFotos != 0 %}
+                        {% for i in 0..numFotos-1 %}
+                            <li>
+                                <a href="#slide{{ i+1 }}">{{ i+2 }}</a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+                    
+                </div>
+
+                <a class="boton" href="producto_imprimir.php?ev={{ producto['id'] }}">Imprimir</a>
+                <a class="boton" id="reseñas" onclick="miFuncion()">Reseñas</a>
+
+                <!--Con la interfaz de isertar productos en la base de datos cambiaré el texto que ahora es común para todos los productos-->
+                <article id="texto">
+                    <p>BARRA de sal del Himalaya con forma de jabón, 300gr.</p> 
+                    <p>Precio: 3€</p>
+                        
+                    <p> Desodorante y exfoliante 100% natural que aporta los beneficios de sus minerales a la piel, pero en un formato cómodo para el uso diario. El bloque de sal se selecciona y pule a mano para darle la forma de jabón (no contiene jabón, es sólo sal). En cocina elimina el olor de pescado, ajo o cebolla de las manos.</p>
+                    <p> Algunos usos: </p> 
+                    <p> 1- Desodorante: </p> 
+                    <p> Moja ligeramente la piedra, frotala con las manos y usa ese agua en axilas, pies o cualquier parte del cuerpo. En una solución de sal ninguna bacteria sobrevive, ayuda a impedir el olor y la formación de bacterias. No tapa los poros, no es antitranspirante.</p> 
+                        
+                    <p> 2. Baño de sal: </p> 
+                    <p> Dejar que el jabón se disuelva parcialmente en agua caliente. Usar el agua rica en minerales para relajar y nutrir la piel, puede añadir un aceite esencial. </p> 
+                        
+                    <p> 3. Exfoliación: </p>
+                    <p> Frotar suavemente pies, codos o callosidades con la barra de sal, previamente humedecida entre las manos con agua tibia y un aceite, aceite esencial o jabón. Su uso directo en otras zonas puede resultar abrasivo. </p>  
+                        
+                    <p> Beneficios: </p>  
+                    <p> Relaja, exfolia, mejora la circulación, combate la celulitis y la retención de líquidos, reduce calambres, tirones, dolores reumáticos, la migraña, el acné, equilibra el ph de la piel y desodoriza. </p>
+                </article>
+        
+                <section id="ventanareseñas">
+                    {% if numReseñas == 0 %}
+                        <br>
+                        <p><strong>No hay todavía ninguna reseña para este producto</strong></p>
+                        <br>
+                    {% else %}
+                        {% for i in 0..numReseñas-1 %}
+                            <hr><br>
+                            <p><strong>Usuario: </strong> {{ reseñas[i]['usuario'] }}</p> <br>
+                            <p><strong>Fecha y hora: </strong> {{ reseñas[i]['fecha'] }} </p> <br>
+
+                            <!--Para el sistema de putuación por estrellas-->
+                            {% if reseñas[i]['puntuación'] == 1 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 2 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 3 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 4 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 5 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></i> <br/><br></p>
+                            {% endif %}
+
+                            <strong>Reseña: </strong> {{ reseñas[i]['reseña'] }}<br/><br/>
+                        {% endfor %}
+                    {% endif %}
+                </section>
+
+                {# Añado las palabras censuradas para poder cogerlas después con javaScript #}
+                {% for entry in censura %}
+                    <p class="censura" data-entry-id="{{ entry.palabra }}">
+                        {{ entry.palabra }}
+                    </p>
+                {% endfor %}
+    {% endblock %}
