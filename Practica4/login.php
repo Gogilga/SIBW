@@ -16,6 +16,9 @@
 
       $_SESSION['nickUsuario'] = $nick;  // guardo en la sesión el nick del usuario que se ha logueado
     }
+    else{
+      echo '<script>', 'errorLogin();', '</script>';
+    }
     
     header("Location: index.php");
     

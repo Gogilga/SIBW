@@ -265,3 +265,25 @@ function cerrarSesion(){
     }
   })
 }
+
+function errorLogin(){
+  Swal.fire({
+      title: "No se pudo iniciar sesión",
+      text: '¿Quieres cerrar sesión?',
+      focusConfirm: false,
+      heightAuto: false,
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#64c196',
+      showCloseButton: true,
+      allowOutsideClick: true,
+      showDenyButton: true,
+      denyButtonText: "Cancelar",
+      backdrop: true,
+      allowEscapeKey: true,
+  }).then((result) => {
+    //Si se pulsa el botón de añadir reseña
+    if (result.isConfirmed){
+      window.location.href = "logout.php";
+    }
+  })
+}
