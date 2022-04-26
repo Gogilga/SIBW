@@ -16,8 +16,14 @@
   
   session_start();
   
-  if (isset($_SESSION['nickUsuario'])) {
+  if(isset($_SESSION['nickUsuario'])) {
     $variablesParaTwig['user'] = getUser($_SESSION['nickUsuario']);
+  }
+  
+  if($_SESSION['error']){
+    $variablesParaTwig['error'] = $error;
+
+    $_SESSION['error']= false;
   }
 
   echo $twig->render('portada.html', ['productos' => $productos, 'numProductos' => $numProductos, 'variablesParaTwig' => $variablesParaTwig]);

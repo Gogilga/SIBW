@@ -5,13 +5,17 @@
 
     {% block sesion %}
         {% if not variablesParaTwig.user %}
-            <a href="#" onclick="iniciarSesion()">Iniciar sesion</a>
+            <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
         {% else %}
             <a href="#" onclick="cerrarSesion()">{{ variablesParaTwig['user']['nick'] }}</a>
         {% endif %}
     {% endblock %}
 
     {% block central %}
+    {% if variablesParaTwig.error %}
+        <a href="#" id="error" onclick="errorLogin()">{{ variablesParaTwig['error'] }}</a>
+    {% endif %}
+
     <section id="cuerpo">
         <section class="productos">
             <!--Bucle para colocar los productos en el grid central-->

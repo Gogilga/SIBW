@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     palabrasMal.push(entryElements[i].dataset.entryId);
   }
 
-  console.log(palabrasMal);
+  //console.log(palabrasMal);
 });
 
 //Todo esto es para hacerlo síncorno, y hasta que no termina el swal.fire no sigue con el if
@@ -206,6 +206,7 @@ function iniciarSesion(){
           "<label for='contraseña' class='swal2'>Contraseña:</label>"+
           "<input type='password' id='contraseña' name='contraseña' class='swal2-input' placeholder='Contraseña'>"+
       "</form>",
+      //html: document.getElementById("formulariosesion").innerHTML,
         focusConfirm: false,
         heightAuto: false,
         confirmButtonText: 'Iniciar',
@@ -217,6 +218,8 @@ function iniciarSesion(){
         preConfirm: () => {
           nick= document.getElementById('nick').value;
           contraseña= document.getElementById('contraseña').value;
+
+          console.log(nick);
 
           //Para comprobar que se han puesto los elementos
           if (!nick && !contraseña){
@@ -268,18 +271,18 @@ function cerrarSesion(){
 
 function errorLogin(){
   Swal.fire({
+      icon: 'error',
       title: "No se pudo iniciar sesión",
-      text: '¿Quieres cerrar sesión?',
-      focusConfirm: false,
+      //text: '¿Quieres cerrar sesión?',
+      html: document.getElementById("error").innerHTML,
+      focusConfirm: true,
       heightAuto: false,
-      confirmButtonText: 'Cerrar',
-      confirmButtonColor: '#64c196',
-      showCloseButton: true,
-      allowOutsideClick: true,
-      showDenyButton: true,
-      denyButtonText: "Cancelar",
+      showConfirmButton: false,
+      showCloseButton: false,
+      allowOutsideClick: false,
       backdrop: true,
-      allowEscapeKey: true,
+      allowEscapeKey: false,
+      timer: 3500, 
   }).then((result) => {
     //Si se pulsa el botón de añadir reseña
     if (result.isConfirmed){
