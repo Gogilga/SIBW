@@ -15,7 +15,7 @@
                 ['nick' => 'Pepe', 'pass' => '$2y$10$XfxLjcJB.54YreU8SOr1y.vEeRMnuu6izd0xAZwSeuQQZGyJ1TT.y', 'super' => false]
               ];
 
-  $error= 'No coincide la contraseña con el usuario';
+  $error1= 'No coincide la contraseña con el usuario';
   
   // Devuelve true si existe un usuario con esa contraseña
   function checkLogin($nick, $pass) {

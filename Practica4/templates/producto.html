@@ -3,6 +3,10 @@
         {{ producto['nombre'] }}
     {% endblock %}
 
+    {% block carga %}
+        onload="errorLogin()"
+    {% endblock %}
+
     {% block sesion %}
         {% if not variablesParaTwig.user %}
             <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
@@ -12,6 +16,13 @@
     {% endblock %}
 
     {% block central %}
+        {% if variablesParaTwig.error %}
+            <a href="#" id="error" onclick="errorLogin()">{{ variablesParaTwig['error'] }}</a>
+            <script>
+                document.addEventListener("DOMContentLoaded", load, true);
+            </script>
+        {% endif %}
+
         <section class="producto">
             <h1 id="tit">{{ producto['nombre'] }}</h1>
 

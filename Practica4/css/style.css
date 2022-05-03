@@ -534,6 +534,30 @@ footer{
   }
   /*---------------------------------------------------*/
 
+  .botonReg{
+	text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: rgb(100, 193, 150);
+    border-radius: 6px;
+    border: 2px solid rgb(84, 185, 138);
+	transition: .3s ease-out all;
+}
+
+.botonReg:hover{
+	color: rgb(100, 193, 150);
+    background-color: transparent;
+	cursor: pointer;
+
+}
+
+#error{
+	display: none;
+}
+
+
 @media only screen and (max-width: 1650px){
 	body{
 		zoom: 80%;

@@ -27,7 +27,7 @@
         <script src="js/Funciones.js"></script>
     </head>
 
-    <body>
+    <body {% block carga %}{% endblock %}>
         
         <header>
             <section id="portada">
@@ -41,7 +41,7 @@
                     <a href="#">Servicios</a>
                     <a href="#">Precios</a>
                     {% block sesion %}
-                    <a href="#">Compañía</a>
+                    
                     {% endblock %}
                 </div>
             </nav>

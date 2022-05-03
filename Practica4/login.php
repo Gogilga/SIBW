@@ -1,6 +1,7 @@
 <?php
   require_once "/usr/local/lib/php/vendor/autoload.php";
   require_once 'bdUsuarios.php';
+  include("bd.php");
 
   $loader = new \Twig\Loader\FilesystemLoader('templates');
   $twig = new \Twig\Environment($loader);
@@ -11,7 +12,7 @@
     $nick = $_POST['nick'];
     $pass = $_POST['contraseña'];
 
-    if(checkLogin($nick, $pass)) {
+    if(checkLogin2($nick, $pass)) {
       session_start();
 
       $_SESSION['nickUsuario'] = $nick;  // guardo en la sesión el nick del usuario que se ha logueado
@@ -22,7 +23,9 @@
       $_SESSION['error']= true;
     }
     
-    header("Location: index.php");
+    //header("Location: index.php");
+    $pag= $_SERVER['HTTP_REFERER'];
+    header("Location: $pag");
     
     exit();
   }

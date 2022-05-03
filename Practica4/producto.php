@@ -31,5 +31,11 @@
     $variablesParaTwig['user'] = getUser($_SESSION['nickUsuario']);
   }
   
+  if($_SESSION['error']){
+    $variablesParaTwig['error'] = $error;
+
+    $_SESSION['error']= false;
+  }
+  
   echo $twig->render('producto.html', ['producto' => $producto, 'fotos' => $fotos, 'numReseñas' => $numReseñas, 'reseñas' => $reseñas, 'numFotos' => $numFotos, 'censura' => $censura, 'variablesParaTwig' => $variablesParaTwig]);
 ?>

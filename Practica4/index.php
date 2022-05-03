@@ -17,7 +17,7 @@
   session_start();
   
   if(isset($_SESSION['nickUsuario'])) {
-    $variablesParaTwig['user'] = getUser($_SESSION['nickUsuario']);
+    $variablesParaTwig['user'] = getUsuario($_SESSION['nickUsuario']);
   }
   
   if($_SESSION['error']){

@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   //console.log(palabrasMal);
 });
 
+//document.addEventListener('error', errorLogin());
+
 //Todo esto es para hacerlo síncorno, y hasta que no termina el swal.fire no sigue con el if
 //Esto sirve para obtener valores del swal.fire
 function miFuncion(){
@@ -203,6 +205,64 @@ function iniciarSesion(){
           "<input type='text' id='nick' name='nick' class='swal2-input' placeholder='Nombre'>"+
 
           "<br><br>"+
+          "<label for='contraseña' class='textformulario'>Contraseña:</label>"+
+          "<input type='password' id='contraseña' name='contraseña' class='swal2-input' placeholder='Contraseña'>"+
+      "</form>"+
+      '<button id="registrar" onclick="registrar()" class="botonReg">Registrarse</button>',
+        focusConfirm: false,
+        heightAuto: false,
+        confirmButtonText: 'Iniciar sesión',
+        confirmButtonColor: '#64c196',
+        showCloseButton: true,
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        preConfirm: () => {
+          nick= document.getElementById('nick').value;
+          contraseña= document.getElementById('contraseña').value;
+
+          console.log(nick);
+
+          //Para comprobar que se han puesto los elementos
+          if (!nick && !contraseña){
+            Swal.showValidationMessage('No has introducido ningún elemento');
+          }else if(!nick){
+            Swal.showValidationMessage('Falta el nombre');
+          }else if(!contraseña){
+            Swal.showValidationMessage('Falta la contraseña');
+          }
+          
+          //Para enviar el formulario
+          //document.getElementById("formulariosesion").submit();
+
+          return [nick, contraseña]
+      }
+    })
+
+    if(formValues) {
+      //Para enviar el formulario
+      document.getElementById("formulariosesion").submit();
+      
+      
+      console.log(document.getElementById("nick").value);
+    }
+  })()
+}
+
+function registrar(){
+  (async () => {
+    const { value: formValues } = await Swal.fire({
+      title: "Registro",
+      html:
+        "<form id='formulariosesion' method='post' enctype='multipart/form-data' action='registro.php'>"+
+          "<label for='nick' class='textformulario'>Nombre:</label>"+
+          "<input type='text' id='nick' name='nick' class='swal2-input' placeholder='Nombre'>"+
+
+          "<br><br>"+
+          "<label for='email' class='swal2'>email:</label>"+
+          "<input type='mail' id='email' name='email' class='swal2-input' placeholder='email'>"+
+
+          "<br><br>"+
           "<label for='contraseña' class='swal2'>Contraseña:</label>"+
           "<input type='password' id='contraseña' name='contraseña' class='swal2-input' placeholder='Contraseña'>"+
       "</form>",
@@ -215,6 +275,8 @@ function iniciarSesion(){
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
+        showDenyButton: true,
+        denyButtonText: 'Registrate',
         preConfirm: () => {
           nick= document.getElementById('nick').value;
           contraseña= document.getElementById('contraseña').value;

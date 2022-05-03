@@ -3,17 +3,25 @@
         Green
     {% endblock %}
 
+    {% block carga %}
+        onload="errorLogin()"
+    {% endblock %}
+
     {% block sesion %}
         {% if not variablesParaTwig.user %}
             <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
         {% else %}
-            <a href="#" onclick="cerrarSesion()">{{ variablesParaTwig['user']['nick'] }}</a>
+            <a href="#" onclick="cerrarSesion()">{{ variablesParaTwig['user']['nombre'] }}</a>
         {% endif %}
     {% endblock %}
 
     {% block central %}
+
     {% if variablesParaTwig.error %}
         <a href="#" id="error" onclick="errorLogin()">{{ variablesParaTwig['error'] }}</a>
+        <script>
+            document.addEventListener("DOMContentLoaded", load, true);
+          </script>
     {% endif %}
 
     <section id="cuerpo">
