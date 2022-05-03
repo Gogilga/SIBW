@@ -168,31 +168,21 @@
     $sentencia->execute();
     $res= $sentencia->get_result();
     
-    $producto = array('id' => 'HHH', 'nombre' => 'XXX', 'pass' => 'YYY', 'super' => 'ZZZ');
+    $ususario = array('id' => 'HHH', 'nombre' => 'XXX', 'pass' => 'YYY', 'super' => 'ZZZ');
     
     if ($res->num_rows > 0) {
       $row = $res->fetch_assoc();
       
-      $producto = array('id' => $row['id'], 'nombre' => $row['nombre'], 'pass' => $row['pass'], 'super' => $row['super']);
+      $ususario = array('id' => $row['id'], 'nombre' => $row['nombre'], 'pass' => $row['pass'], 'super' => $row['super']);
     }
     
-    return $producto;
+    return $ususario;
   }
 
   function checkLogin2($nick, $pass){
-    $mysqli= conexion();
-
-    //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("SELECT pass FROM usuarios WHERE nombre=?");
-    $sentencia->bind_param('s', $nick);
-    $sentencia->execute();
-    $res= $sentencia->get_result();
-
-    if ($res->num_rows > 0) {
-      $row = $res->fetch_assoc();
-      
-      $passBase = $row['pass'];
-    }
+    $ususario= getUsuario($nick);
+    
+    $passBase = $ususario['pass'];
     
     if (password_verify($pass, $passBase)) {
       return true;

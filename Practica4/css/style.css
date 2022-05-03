@@ -557,6 +557,36 @@ footer{
 	display: none;
 }
 
+/*Para la pagina usuario.html*/
+
+#titdatosusuario{
+	font-size: 200%;
+}
+
+#secusuario{
+	padding: 2%;
+}
+
+#formularioUsuario{
+	font-size: 150%;
+}
+
+.inputleer{
+	border: none;
+	background-color: transparent;
+	font-size: 110%;
+}
+
+#terminar{
+	display: none;
+}
+
+.inputNormal{
+	border: solid;
+	border: 1%;
+	background-color: transparent;
+	font-size: 110%;
+}
 
 @media only screen and (max-width: 1650px){
 	body{

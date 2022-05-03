@@ -1,0 +1,46 @@
+{% extends "padre.html" %}
+    {% block titulo %}
+    {{ usuario['nombre'] }}
+    {% endblock %}
+
+    {% block carga %}
+        onload="errorLogin()"
+    {% endblock %}
+
+    {% block sesion %}
+        {% if not usuario %}
+            <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
+        {% else %}
+            <a href="#" onclick="cerrarSesion()">{{ usuario['nombre'] }}</a>
+        {% endif %}
+    {% endblock %}
+
+    {% block central %}
+
+    <section id="cuerpo">
+        <section id="datosUsuario">
+            <h1 id="titdatosusuario">Información del usuario</h1>
+            <br>
+
+            <section id="secusuario">
+                <form id='formularioUsuario' method='post' enctype='multipart/form-data' action='producto_imprimir.html' autocomplete="off">
+                    <label for='nombre' class='textformulario'>Nombre:</label>
+                    <input type='text' id='nombre' class="inputleer" placeholder='Nombre' value="{{ usuario['nombre'] }}" readonly>
+        
+                    <br><br>
+                    <label for='email' class='textformulario'>E-mail:</label>
+                    <input type='email' id='email' class="inputleer" placeholder='ejemplo@correo.com' value="{{ usuario['mail'] }}" readonly>
+
+                    <br><br>
+                    <input type="submit" value="Terminar" id="terminar" class="botonReg">
+                    <br>
+                </form>
+
+                <button id="editar" onclick="editar()" class="botonReg">Editar</button>
+
+                {% if usuario['super'] == 1 %}
+                    <button id="editarUsu" onclick="editar()" class="botonReg">Editar usuarios</button>
+                {% endif %}
+            </section>
+        </section>
+    {% endblock %}

@@ -202,7 +202,7 @@ function iniciarSesion(){
       html:
         "<form id='formulariosesion' method='post' enctype='multipart/form-data' action='login.php'>"+
           "<label for='nick' class='textformulario'>Nombre:</label>"+
-          "<input type='text' id='nick' name='nick' class='swal2-input' placeholder='Nombre'>"+
+          "<input type='text' id='nick' name='nick' class='swal2-input' placeholder='Nombre' autofocus>"+
 
           "<br><br>"+
           "<label for='contraseña' class='textformulario'>Contraseña:</label>"+
@@ -256,7 +256,7 @@ function registrar(){
       html:
         "<form id='formulariosesion' method='post' enctype='multipart/form-data' action='registro.php'>"+
           "<label for='nick' class='textformulario'>Nombre:</label>"+
-          "<input type='text' id='nick' name='nick' class='swal2-input' placeholder='Nombre'>"+
+          "<input type='text' id='nick' name='nick' class='swal2-input' placeholder='Nombre' autofocus>"+
 
           "<br><br>"+
           "<label for='email' class='swal2'>email:</label>"+
@@ -269,14 +269,12 @@ function registrar(){
       //html: document.getElementById("formulariosesion").innerHTML,
         focusConfirm: false,
         heightAuto: false,
-        confirmButtonText: 'Iniciar',
+        confirmButtonText: 'Registrate',
         confirmButtonColor: '#64c196',
         showCloseButton: true,
         allowOutsideClick: true,
         backdrop: true,
         allowEscapeKey: true,
-        showDenyButton: true,
-        denyButtonText: 'Registrate',
         preConfirm: () => {
           nick= document.getElementById('nick').value;
           contraseña= document.getElementById('contraseña').value;
@@ -351,4 +349,19 @@ function errorLogin(){
       window.location.href = "logout.php";
     }
   })
+}
+
+function editar(){
+  var nombre= document.getElementById('nombre');
+  var email= document.getElementById('email');
+  var terminar= document.getElementById('terminar');
+  var editar= document.getElementById('editar');
+
+  nombre.removeAttribute("readonly" , false);
+  email.removeAttribute("readonly" , false);
+  terminar.style.display="block";
+
+  nombre.className= 'swal2-input';
+  email.className= 'swal2-input';
+  editar.style.display="none";
 }
