@@ -21,7 +21,7 @@
   }
   
   if($_SESSION['error']){
-    $variablesParaTwig['error'] = $error;
+    $variablesParaTwig['error'] = $error[0];
 
     $_SESSION['error']= false;
   }

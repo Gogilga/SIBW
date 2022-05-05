@@ -12,6 +12,7 @@
             <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
         {% else %}
             <a href="usuario.php">{{ variablesParaTwig['user']['nombre'] }}</a>
+            <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
         {% endif %}
     {% endblock %}
 
@@ -19,15 +20,13 @@
 
     {% if variablesParaTwig.error %}
         <a href="#" id="error" onclick="errorLogin()">{{ variablesParaTwig['error'] }}</a>
-        <script>
-            document.addEventListener("DOMContentLoaded", load, true);
-          </script>
     {% endif %}
 
     <section id="cuerpo">
         <section class="productos">
             <!--Bucle para colocar los productos en el grid central-->
             {% for i in 0..numProductos-1 %}
+            <section id="caja">
                 <a href="producto.php?ev={{ productos[i]['id'] }}" class="div1">
                     <article class="caja-principal">
                         <div class="imagen">
@@ -40,6 +39,7 @@
                         </div>
                     </article>
                 </a>
+            </section>
             {% endfor %}
         </section>
     {% endblock %}

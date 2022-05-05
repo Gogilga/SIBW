@@ -20,6 +20,13 @@
   if (isset($_SESSION['nickUsuario'])) {
     $usuario = getUsuario($_SESSION['nickUsuario']);
   }
+  
+  if($_SESSION['error']){
+    $variablesParaTwig['error'] = $error[0];
+
+    $_SESSION['error']= false;
+  }
+
 
   echo $twig->render('usuario.html', ['usuario' => $usuario]);
 ?>

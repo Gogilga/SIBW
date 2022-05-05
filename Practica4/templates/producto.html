@@ -11,7 +11,8 @@
         {% if not variablesParaTwig.user %}
             <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
         {% else %}
-            <a href="#" onclick="cerrarSesion()">{{ variablesParaTwig['user']['nick'] }}</a>
+            <a href="usuario.php">{{ variablesParaTwig['user']['nombre'] }}</a>
+            <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
         {% endif %}
     {% endblock %}
 

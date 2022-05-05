@@ -1,5 +1,5 @@
 <?php
-   $error= 'No coincide la contraseña con el usuario';
+   $error= ['No coincide la contraseña con el usuario','Ya existe un usuario con ese nombre'];
 
   //Funcion para hacer la conexion con la base de datos y no repetir más código
   function conexion(){
@@ -163,17 +163,17 @@
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("SELECT id, nombre, pass, super FROM usuarios WHERE nombre=?");
+    $sentencia= $mysqli->prepare("SELECT id, nombre, pass, email, super FROM usuarios WHERE nombre=?");
     $sentencia->bind_param('s', $nick);
     $sentencia->execute();
     $res= $sentencia->get_result();
     
-    $ususario = array('id' => 'HHH', 'nombre' => 'XXX', 'pass' => 'YYY', 'super' => 'ZZZ');
+    $ususario = array('id' => 'HHH', 'nombre' => 'XXX', 'pass' => 'YYY', 'email' => 'SSS', 'super' => 'ZZZ');
     
     if ($res->num_rows > 0) {
       $row = $res->fetch_assoc();
       
-      $ususario = array('id' => $row['id'], 'nombre' => $row['nombre'], 'pass' => $row['pass'], 'super' => $row['super']);
+      $ususario = array('id' => $row['id'], 'nombre' => $row['nombre'], 'pass' => $row['pass'], 'email' => $row['email'], 'super' => $row['super']);
     }
     
     return $ususario;
@@ -190,4 +190,25 @@
       return false;
     }
   }
+
+  function incluirUsuario($nombre,$pass,$email){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("INSERT INTO usuarios(nombre,pass,email,super) values(?,?,?,0)");
+    $sentencia->bind_param('sss', $nombre, $pass, $email);
+    $sentencia->execute();
+  }
+
+  function editarUsuario($nombre,$email,$id){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("UPDATE usuarios SET nombre=?,email=? WHERE id=?");
+    $sentencia->bind_param('ssi', $nombre, $email, $id);
+    $sentencia->execute();
+  }
+
+  // se usa para sacar todos los elementos menos el que se le pasa por ?
+  //SELECT * FROM usuarios WHERE is <> ?
 ?>

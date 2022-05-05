@@ -24,6 +24,7 @@
     }
     
     //header("Location: index.php");
+    // Para volver a la página de la que es llamado anteriormente
     $pag= $_SERVER['HTTP_REFERER'];
     header("Location: $pag");
     
