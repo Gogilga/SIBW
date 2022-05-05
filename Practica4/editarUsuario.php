@@ -11,19 +11,30 @@
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $email= $_POST['email'];
+    $nombreAntiguo= $_POST['nombreAntiguo'];
 
-    // Compruebo que no exista ningún usuario con ese nombre ya
-    $usuario= getUsuario($nombre);
+    $usuario= getUsuario($nombreAntiguo);
+    $id= $usuario['id'];
 
-    if(isset($usuario)){
-      session_start();
-
-      $_SESSION['error']= true;
+    if($nombreAntiguo == $nombre){
+      editarUsuario($nombre,$email,$id);
     }
     else{
-      $id= $usuario['id'];
+      // Compruebo que no exista ningún usuario con ese nombre ya
+      $usuario2= getUsuario($nombre);
 
-      editarUsuario($nombre,$email,$id);
+      if(isset($usuario2)){
+        session_start();
+  
+        $_SESSION['error']= true;
+      }
+      else{
+        editarUsuario($nombre,$email,$id);
+
+        session_start();
+
+        $_SESSION['nickUsuario'] = $nombre;
+      }
     }
     
     header("Location: usuario.php");

@@ -17,9 +17,10 @@
   
   session_start();
   
-  if (isset($_SESSION['nickUsuario'])) {
+  if(isset($_SESSION['nickUsuario'])) {
     $usuario = getUsuario($_SESSION['nickUsuario']);
   }
+
   
   if($_SESSION['error']){
     $variablesParaTwig['error'] = $error[0];
@@ -27,6 +28,11 @@
     $_SESSION['error']= false;
   }
 
-
-  echo $twig->render('usuario.html', ['usuario' => $usuario]);
+  //Si no hay sesión iniciada no se puede entrar en esta página
+  if(isset($_SESSION['nickUsuario'])) {
+    echo $twig->render('usuario.html', ['usuario' => $usuario]);
+  }
+  else{
+    header("Location: index.php");
+  }
 ?>

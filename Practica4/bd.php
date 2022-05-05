@@ -168,7 +168,7 @@
     $sentencia->execute();
     $res= $sentencia->get_result();
     
-    $ususario = array('id' => 'HHH', 'nombre' => 'XXX', 'pass' => 'YYY', 'email' => 'SSS', 'super' => 'ZZZ');
+    //$ususario = array('id' => 'HHH', 'nombre' => 'XXX', 'pass' => 'YYY', 'email' => 'SSS', 'super' => 'ZZZ');
     
     if ($res->num_rows > 0) {
       $row = $res->fetch_assoc();
@@ -184,7 +184,7 @@
     
     $passBase = $ususario['pass'];
     
-    if (password_verify($pass, $passBase)) {
+    if(password_verify($pass, $passBase)) {
       return true;
     }else{
       return false;

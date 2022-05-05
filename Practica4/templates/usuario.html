@@ -19,7 +19,7 @@
     {% block central %}
     
     {% if variablesParaTwig.error %}
-        <a href="#" id="error" onclick="errorLogin()">{{ variablesParaTwig['error'] }}</a>
+        <a href="#" id="error">{{ variablesParaTwig['error'] }}</a>
     {% endif %}
 
     <section id="cuerpo">
@@ -30,11 +30,13 @@
             <section id="secusuario">
                 <form id='formularioUsuario' method='post' enctype='multipart/form-data' action='editarUsuario.php' autocomplete="off">
                     <label for='nombre' class='textformulario'>Nombre:</label>
-                    <input type='text' id='nombre' class="inputleer" placeholder='Nombre' value="{{ usuario['nombre'] }}" readonly>
+                    <input type='text' id='nombre' name="nombre" class="inputleer" placeholder='Nombre' value="{{ usuario['nombre'] }}" readonly>
+
+                    <input type='text' id='nombreAntiguo' name="nombreAntiguo" value="{{ usuario['nombre'] }}" readonly>
         
                     <br><br>
                     <label for='email' class='textformulario'>E-mail:</label>
-                    <input type='email' id='email' class="inputleer" placeholder='ejemplo@correo.com' value="{{ usuario['email'] }}" readonly>
+                    <input type='email' id='email' name="email" class="inputleer" placeholder='ejemplo@correo.com' value="{{ usuario['email'] }}" readonly>
 
                     <br><br>
                     <input type="submit" value="Terminar" id="terminar" class="botonReg">

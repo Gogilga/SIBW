@@ -14,9 +14,9 @@
     $email= $_POST['email'];
 
     // Compruebo que no exista ningún usuario con ese nombre ya
-    $existe= getUser($nick);
+    $existe= getUsuario($nick);
 
-    if(!isset($existe)){
+    if(isset($existe)){
       session_start();
 
       $_SESSION['error']= true;

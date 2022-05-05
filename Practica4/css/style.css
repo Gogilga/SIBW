@@ -596,6 +596,10 @@ footer{
 	font-size: 110%;
 }
 
+#nombreAntiguo{
+	display: none;
+}
+
 @media only screen and (max-width: 1650px){
 	body{
 		zoom: 80%;
