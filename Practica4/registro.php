@@ -19,7 +19,7 @@
     if(isset($existe)){
       session_start();
 
-      $_SESSION['error']= true;
+      $_SESSION['error']= 'Ya hay un usuario con ese nombre';
     }
     else{
       session_start();

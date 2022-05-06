@@ -4,7 +4,9 @@
     {% endblock %}
 
     {% block carga %}
-        onload="errorLogin()"
+        {% if variablesParaTwig.error %}
+            onload="errores()"
+        {% endif %}
     {% endblock %}
 
     {% block sesion %}
@@ -18,10 +20,7 @@
 
     {% block central %}
         {% if variablesParaTwig.error %}
-            <a href="#" id="error" onclick="errorLogin()">{{ variablesParaTwig['error'] }}</a>
-            <script>
-                document.addEventListener("DOMContentLoaded", load, true);
-            </script>
+            <a href="#" id="error">{{ variablesParaTwig['error'] }}</a>
         {% endif %}
 
         <section class="producto">

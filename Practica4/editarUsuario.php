@@ -11,13 +11,23 @@
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $email= $_POST['email'];
+    $contraseña= $_POST['contraseñausu'];
     $nombreAntiguo= $_POST['nombreAntiguo'];
+
+    echo count($_POST);
+    //echo $_POST[0];
 
     $usuario= getUsuario($nombreAntiguo);
     $id= $usuario['id'];
 
     if($nombreAntiguo == $nombre){
-      editarUsuario($nombre,$email,$id);
+      if(isset($contraseña)){
+        $pass= password_hash($contraseña, PASSWORD_DEFAULT); // realizo un hash de la contraseña para más seguridad
+        editarUsuario($nombre,$email,$id,$pass);
+      }
+      else{
+        editarUsuario($nombre,$email,$id);
+      }
     }
     else{
       // Compruebo que no exista ningún usuario con ese nombre ya
@@ -26,10 +36,16 @@
       if(isset($usuario2)){
         session_start();
   
-        $_SESSION['error']= true;
+        $_SESSION['error']= 'Ya hay un usuario con ese nombre';
       }
       else{
-        editarUsuario($nombre,$email,$id);
+        if(isset($contraseña)){
+          $pass= password_hash($contraseña, PASSWORD_DEFAULT); // realizo un hash de la contraseña para más seguridad
+          editarUsuario($nombre,$email,$id,$pass);
+        }
+        else{
+          editarUsuario($nombre,$email,$id);
+        }
 
         session_start();
 

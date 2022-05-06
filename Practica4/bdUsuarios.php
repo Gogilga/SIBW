@@ -18,7 +18,7 @@
   $error1= 'No coincide la contraseña con el usuario';
   
   // Devuelve true si existe un usuario con esa contraseña
-  function checkLogin($nick, $pass) {
+  function checkLogin($nick, $pass){
     global $usuarios;
     
     for ($i = 0 ; $i < sizeof($usuarios) ; $i++) {

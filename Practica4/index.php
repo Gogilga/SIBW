@@ -20,10 +20,10 @@
     $variablesParaTwig['user'] = getUsuario($_SESSION['nickUsuario']);
   }
   
-  if($_SESSION['error']){
-    $variablesParaTwig['error'] = $error[0];
+  if(isset($_SESSION['error'])){
+    $variablesParaTwig['error'] = $_SESSION['error'];
 
-    $_SESSION['error']= false;
+    unset($_SESSION['error']);
   }
 
   echo $twig->render('portada.html', ['productos' => $productos, 'numProductos' => $numProductos, 'variablesParaTwig' => $variablesParaTwig]);

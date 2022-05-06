@@ -322,18 +322,17 @@ function cerrarSesion(){
       backdrop: true,
       allowEscapeKey: true,
   }).then((result) => {
-    //Si se pulsa el botón de añadir reseña
+    //Si se pulsa el botón de cerrar
     if (result.isConfirmed){
       window.location.href = "logout.php";
     }
   })
 }
 
-function errorLogin(){
+function errores(){
   Swal.fire({
       icon: 'error',
-      title: "No se pudo iniciar sesión",
-      //text: '¿Quieres cerrar sesión?',
+      title: "Error",
       html: document.getElementById("error").innerHTML,
       focusConfirm: true,
       heightAuto: false,
@@ -343,25 +342,37 @@ function errorLogin(){
       backdrop: true,
       allowEscapeKey: false,
       timer: 3500, 
-  }).then((result) => {
-    //Si se pulsa el botón de añadir reseña
-    if (result.isConfirmed){
-      window.location.href = "logout.php";
-    }
   })
 }
 
 function editar(){
   var nombre= document.getElementById('nombre');
   var email= document.getElementById('email');
+  var contraseña= document.getElementById('contraseñausu');
   var terminar= document.getElementById('terminar');
   var editar= document.getElementById('editar');
 
   nombre.removeAttribute("readonly" , false);
   email.removeAttribute("readonly" , false);
+  contraseña.style.display="block";
+  document.getElementById('labelusu').style.display="block";
   terminar.style.display="block";
 
   nombre.className= 'swal2-input';
   email.className= 'swal2-input';
+  editar.style.display="none";
+}
+
+function editarOtrosUsuarios(){
+  var form1= document.getElementById('formularioUsuario');
+  var form2= document.getElementById('formularioOtrosUsuarios');
+  var terminar= document.getElementById('Acabar');
+  var editar= document.getElementById('editar');
+
+  form1.style.display="none";
+  form2.style.display="block";
+  terminar.style.display="block";
+  document.getElementById('editarUsu').style.display="none";
+
   editar.style.display="none";
 }

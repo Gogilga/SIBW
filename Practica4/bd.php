@@ -1,6 +1,4 @@
 <?php
-   $error= ['No coincide la contraseña con el usuario','Ya existe un usuario con ese nombre'];
-
   //Funcion para hacer la conexion con la base de datos y no repetir más código
   function conexion(){
     $mysqli = new mysqli("mysql", "coronavirus", "covid19", "SIBW");
@@ -163,20 +161,52 @@
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("SELECT id, nombre, pass, email, super FROM usuarios WHERE nombre=?");
+    $sentencia= $mysqli->prepare("SELECT id, nombre, pass, email, super, moderador, gestor FROM usuarios WHERE nombre=?");
     $sentencia->bind_param('s', $nick);
     $sentencia->execute();
     $res= $sentencia->get_result();
     
-    //$ususario = array('id' => 'HHH', 'nombre' => 'XXX', 'pass' => 'YYY', 'email' => 'SSS', 'super' => 'ZZZ');
-    
     if ($res->num_rows > 0) {
       $row = $res->fetch_assoc();
       
-      $ususario = array('id' => $row['id'], 'nombre' => $row['nombre'], 'pass' => $row['pass'], 'email' => $row['email'], 'super' => $row['super']);
+      $ususario = array('id' => $row['id'], 'nombre' => $row['nombre'], 'pass' => $row['pass'], 'email' => $row['email'], 'super' => $row['super'], 'moderador' => $row['moderador'], 'gestor' => $row['gestor']);
     }
     
     return $ususario;
+  }
+
+  function getNumUsuarios($id){
+    $mysqli= conexion();
+
+    $sentencia= $mysqli->prepare("SELECT * FROM usuarios WHERE id <> ?");
+    $sentencia->bind_param('i', $id);
+    $sentencia->execute();
+    $res= $sentencia->get_result();
+
+    return $res->num_rows;
+  }
+
+  function getUsuarios($id){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("SELECT id, nombre, super, moderador, gestor FROM usuarios WHERE id <> ?");
+    $sentencia->bind_param('i', $id);
+    $sentencia->execute();
+    $res= $sentencia->get_result();
+    
+    $usuarios= Array();
+    $numUsuarios= getNumUsuarios($id);
+
+    if ($res->num_rows > 0){
+      for($i = 0; $i <= $numUsuarios; $i++){
+        $row = $res->fetch_assoc();
+
+        array_push($usuarios, ['id' => $row['id'], 'nombre' => $row['nombre'], 'super' => $row['super'], 'moderador' => $row['moderador'], 'gestor' => $row['gestor']]);
+      }
+    }
+
+    return $usuarios;
   }
 
   function checkLogin2($nick, $pass){
@@ -200,12 +230,27 @@
     $sentencia->execute();
   }
 
-  function editarUsuario($nombre,$email,$id){
+  // Con pass=false puedo llamar a la función sin ese argumento y no hará nada con él, solamente comprobar si está
+  function editarUsuario($nombre,$email,$id,$pass=false){
     $mysqli= conexion();
 
-    //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("UPDATE usuarios SET nombre=?,email=? WHERE id=?");
-    $sentencia->bind_param('ssi', $nombre, $email, $id);
+    if($pass){
+      $sentencia= $mysqli->prepare("UPDATE usuarios SET nombre=?,pass=?,email=? WHERE id=?");
+      $sentencia->bind_param('sssi', $nombre, $pass, $email, $id);
+    }
+    else{
+      $sentencia= $mysqli->prepare("UPDATE usuarios SET nombre=?,email=? WHERE id=?");
+      $sentencia->bind_param('ssi', $nombre, $email, $id);
+    }
+    
+    $sentencia->execute();
+  }
+
+  function cambiarRol($rol,$id,$valor){
+    $mysqli= conexion();
+
+    $sentencia= $mysqli->prepare("UPDATE usuarios SET $rol=? WHERE id=?");
+    $sentencia->bind_param('ii', $valor, $id);
     $sentencia->execute();
   }
 

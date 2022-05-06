@@ -1,0 +1,53 @@
+{% extends "padre.html" %}
+    {% block titulo %}
+    {{ usuario['nombre'] }}
+    {% endblock %}
+
+    {% block carga %}
+        {% if variablesParaTwig.error %}
+            onload="errores()"
+        {% endif %}
+    {% endblock %}
+
+    {% block sesion %}
+        {% if not usuario %}
+            <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
+        {% else %}
+            <a href="#">{{ usuario['nombre'] }}</a>
+            <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+        {% endif %}
+    {% endblock %}
+
+    {% block central %}
+    
+    {% if variablesParaTwig.error %}
+        <a href="#" id="error" onclick="errores()">{{ variablesParaTwig['error'] }}</a>
+    {% endif %}
+
+    <section id="cuerpo">
+        <section id="datosUsuario">
+            <h1 id="titdatosusuario">Incluir un nuevo producto</h1>
+            <br>
+
+            <section id="secusuario">
+                <form id='formularioProducto' method='post' enctype='multipart/form-data' action='editarUsuario.php' autocomplete="off">
+                    <label for='nombre' class='textformulario'>Nombre:</label>
+                    <input type='text' id='nombre' name="nombre" class="swal2-input" placeholder='Nombre'>
+        
+                    <br><br>
+                    <label for='contenido' class='textformulario'>Contenido:</label>
+                    <input type='text' id='contenido' name="contenido" class="swal2-input">
+
+                    <br><br>
+                    <label for='contraseña' id="labelusu" class='textformulario'>Contraseña:</label>
+                    <input type='password' id='contraseñausu' name="contraseñausu" class="swal2-input">
+
+                    <br><br>
+                    <input type="submit" value="Terminar" id="terminar" class="botonReg">
+                    <br>
+                </form>
+
+                <button id="editar" onclick="editar()" class="botonReg">Editar</button>
+            </section>
+        </section>
+    {% endblock %}

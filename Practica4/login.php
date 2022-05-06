@@ -20,7 +20,8 @@
     else{
       session_start();
 
-      $_SESSION['error']= true;
+      //$_SESSION['error']= true;
+      $_SESSION['error']= 'No coincide la contraseña con el usuario';
     }
     
     //header("Location: index.php");

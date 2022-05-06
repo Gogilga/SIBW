@@ -563,6 +563,7 @@ footer{
 
 #error{
 	display: none;
+	font-size: 120%;
 }
 
 /*Para la pagina usuario.html*/
@@ -597,6 +598,14 @@ footer{
 }
 
 #nombreAntiguo{
+	display: none;
+}
+
+#contraseñausu, #labelusu{
+	display: none;
+}
+
+#formularioOtrosUsuarios{
 	display: none;
 }
 

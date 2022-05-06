@@ -4,7 +4,9 @@
     {% endblock %}
 
     {% block carga %}
-        onload="errorLogin()"
+        {% if variablesParaTwig.error %}
+            onload="errores()"
+        {% endif %}
     {% endblock %}
 
     {% block sesion %}
@@ -19,8 +21,10 @@
     {% block central %}
 
     {% if variablesParaTwig.error %}
-        <a href="#" id="error" onclick="errorLogin()">{{ variablesParaTwig['error'] }}</a>
+        <a href="#" id="error" onclick="errores()">{{ variablesParaTwig['error'] }}</a>
     {% endif %}
+
+    <a href="altaProducto.php">Alta producto</a>
 
     <section id="cuerpo">
         <section class="productos">

@@ -4,7 +4,9 @@
     {% endblock %}
 
     {% block carga %}
-        onload="errorLogin()"
+        {% if variablesParaTwig.error %}
+            onload="errores()"
+        {% endif %}
     {% endblock %}
 
     {% block sesion %}
@@ -19,7 +21,7 @@
     {% block central %}
     
     {% if variablesParaTwig.error %}
-        <a href="#" id="error">{{ variablesParaTwig['error'] }}</a>
+        <a href="#" id="error" onclick="errores()">{{ variablesParaTwig['error'] }}</a>
     {% endif %}
 
     <section id="cuerpo">
@@ -39,14 +41,51 @@
                     <input type='email' id='email' name="email" class="inputleer" placeholder='ejemplo@correo.com' value="{{ usuario['email'] }}" readonly>
 
                     <br><br>
+                    <label for='contraseña' id="labelusu" class='textformulario'>Contraseña:</label>
+                    <input type='password' id='contraseñausu' name="contraseñausu" class="swal2-input">
+
+                    <br><br>
                     <input type="submit" value="Terminar" id="terminar" class="botonReg">
                     <br>
                 </form>
 
                 <button id="editar" onclick="editar()" class="botonReg">Editar</button>
 
+                {# Para que los superusuarios puedan cambiar el rol de los demás #}
                 {% if usuario['super'] == 1 %}
-                    <button id="editarUsu" onclick="editar()" class="botonReg">Editar usuarios</button>
+                    <button id="editarUsu" onclick="editarOtrosUsuarios()" class="botonReg">Editar usuarios</button>
+
+                    <form id='formularioOtrosUsuarios' method='post' enctype='multipart/form-data' action='editarOtroUsuario.php' autocomplete="off">
+                        {% for i in 0..numUsuarios-2 %}
+                            <p>{{ usuarios[i]['nombre'] }}</p>
+
+                            <label for="usuario{{ usuarios[i]['id'] }}" class='textformulario'>Super: </label>
+                            {% if usuarios[i]['super'] == 1 %}
+                                <input type="checkbox" name="super{{ usuarios[i]['id'] }}" id="super{{ usuarios[i]['id'] }}" checked>
+                            {% else %}
+                                <input type="checkbox" name="super{{ usuarios[i]['id'] }}" id="super{{ usuarios[i]['id'] }}">
+                            {% endif %}
+                            
+
+                            <label for="usuario{{ usuarios[i]['id'] }}" class='textformulario'>Moderador: </label>
+                            {% if usuarios[i]['moderador'] == 1 %}
+                                <input type="checkbox" name="moderador{{ usuarios[i]['id'] }}" id="moderador{{ usuarios[i]['id'] }}" checked>
+                            {% else %}
+                                <input type="checkbox" name="moderador{{ usuarios[i]['id'] }}" id="moderador{{ usuarios[i]['id'] }}">
+                            {% endif %}
+
+                            <label for="usuario{{ usuarios[i]['id'] }}" class='textformulario'>Gestor: </label>
+                            {% if usuarios[i]['gestor'] == 1 %}
+                                <input type="checkbox" name="gestor{{ usuarios[i]['id'] }}" id="gestor{{ usuarios[i]['id'] }}" checked>
+                            {% else %}
+                                <input type="checkbox" name="gestor{{ usuarios[i]['id'] }}" id="gestor{{ usuarios[i]['id'] }}">
+                            {% endif %}
+
+                            <br><br>
+                        {% endfor %}
+
+                        <input type="submit"  value="Acabar" id="acabar" class="botonReg">
+                    </form>
                 {% endif %}
             </section>
         </section>
