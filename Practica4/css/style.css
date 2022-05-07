@@ -609,6 +609,10 @@ footer{
 	display: none;
 }
 
+#formularioProducto{
+	align-items: center;
+}
+
 @media only screen and (max-width: 1650px){
 	body{
 		zoom: 80%;

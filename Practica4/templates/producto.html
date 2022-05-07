@@ -121,3 +121,15 @@
                     </p>
                 {% endfor %}
     {% endblock %}
+
+    {% block menu %}
+        {% if variablesParaTwig.user %}
+            <p class="titulomenu">Acciones usuario</p>
+            <ul class="menu">
+                <li><a href="#" onclick="añadirProducto()">Añadir producto</a></li>
+                {% if variablesParaTwig['user']['moderador'] %}
+                    <li><a href="#">Editar comentarios</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% endblock %}

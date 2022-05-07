@@ -60,6 +60,15 @@
     return $producto;
   }
 
+  function incluirProducto($nombre,$info,$contenido,$foto){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("INSERT INTO producto(nombre,info,contenido,foto) values(?,?,?,?)");
+    $sentencia->bind_param('ssss', $nombre, $info, $contenido, $foto);
+    $sentencia->execute();
+  }
+
   function getNumFotos($idEv){
     $mysqli= conexion();
 

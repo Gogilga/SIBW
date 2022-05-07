@@ -24,8 +24,6 @@
         <a href="#" id="error" onclick="errores()">{{ variablesParaTwig['error'] }}</a>
     {% endif %}
 
-    <a href="altaProducto.php">Alta producto</a>
-
     <section id="cuerpo">
         <section class="productos">
             <!--Bucle para colocar los productos en el grid central-->
@@ -46,4 +44,14 @@
             </section>
             {% endfor %}
         </section>
+    {% endblock %}
+
+    {% block menu %}
+        {% if variablesParaTwig.user %}
+            <p class="titulomenu">Acciones usuario</p>
+            <ul class="menu">
+                <li><a href="#" onclick="añadirProducto()">Añadir producto</a></li>
+                <li><a href="#">Bolsas reutilizables</a></li>
+            </ul>
+        {% endif %}
     {% endblock %}
