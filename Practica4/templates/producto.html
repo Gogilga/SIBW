@@ -63,12 +63,18 @@
                 </div>
 
                 <a class="boton" href="producto_imprimir.php?ev={{ producto['id'] }}">Imprimir</a>
-                <a class="boton" id="reseñas" onclick="miFuncion()">Reseñas</a>
+                {% if not variablesParaTwig.user %}
+                    <a class="boton" id="reseñas" onclick="verReseñas()">Reseñas</a>
+                {% else %}
+                    <a class="boton" id="reseñas" onclick="verReseñasUsuario()">Reseñas</a>
+                {% endif %}
+                
 
                 <!--Con la interfaz de isertar productos en la base de datos cambiaré el texto que ahora es común para todos los productos-->
                 <article id="texto">
+                    <p>Precio: {{ producto['precio'] }}€</p>
+
                     <p>BARRA de sal del Himalaya con forma de jabón, 300gr.</p> 
-                    <p>Precio: 3€</p>
                         
                     <p> Desodorante y exfoliante 100% natural que aporta los beneficios de sus minerales a la piel, pero en un formato cómodo para el uso diario. El bloque de sal se selecciona y pule a mano para darle la forma de jabón (no contiene jabón, es sólo sal). En cocina elimina el olor de pescado, ajo o cebolla de las manos.</p>
                     <p> Algunos usos: </p> 
@@ -114,6 +120,22 @@
                             {% endif %}
 
                             <strong>Reseña: </strong> {{ reseñas[i]['reseña'] }}<br/><br/>
+
+                            {% if variablesParaTwig['user']['moderador'] %}
+                                <form id='formularioEdReseña' method='post' enctype='multipart/form-data' action='editarReseña.php' autocomplete="off">
+                                    <input type='text' id='nombre' name="nombre" class="oculto" placeholder='Nombre' value="{{ reseñas[i]['usuario'] }}" readonly>
+                
+                                    <input type='text' id='punt' name="punt" class="oculto" value="{{ reseñas[i]['puntuación'] }}" readonly>
+
+                                    <input type='text' id='idReseña' name="idReseña" class="oculto" value="{{ reseñas[i]['id'] }}" readonly>
+                        
+                                    <textarea id="descrip" name="descrip" style="height:auto!important;resize: none;" class="oculto" rows="9" cols="32" oninput="censuraPalabras()">{{ reseñas[i]['reseña'] }}</textarea>
+                
+                                    <input type="submit" value="Eliminar" id="eliminar" class="botonReg">
+                                    <br>
+                                </form>
+                                <br>
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                 </section>

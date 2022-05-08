@@ -44,17 +44,17 @@
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("SELECT id, nombre, info, contenido, foto FROM producto WHERE id=?");
+    $sentencia= $mysqli->prepare("SELECT id, nombre, info, contenido, foto, precio FROM producto WHERE id=?");
     $sentencia->bind_param('i', $idEv);
     $sentencia->execute();
     $res= $sentencia->get_result();
     
-    $producto = array('id' => 'HHH', 'nombre' => 'XXX', 'info' => 'YYY', 'contenido' => 'ZZZ', 'foto' => 'AAA');
+    $producto = array('id' => 'HHH', 'nombre' => 'XXX', 'info' => 'YYY', 'contenido' => 'ZZZ', 'foto' => 'AAA', 'precio' => 'AAA');
     
     if ($res->num_rows > 0) {
       $row = $res->fetch_assoc();
       
-      $producto = array('id' => $row['id'], 'nombre' => $row['nombre'], 'info' => $row['info'], 'contenido' => $row['contenido'], 'foto' => $row['foto']);
+      $producto = array('id' => $row['id'], 'nombre' => $row['nombre'], 'info' => $row['info'], 'contenido' => $row['contenido'], 'foto' => $row['foto'], 'precio' => $row['precio']);
     }
     
     return $producto;
@@ -123,7 +123,7 @@
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
     //Con date_format(fecha, 'El %d-%m-%Y a las %H:%i') AS fecha es para formatear la fecha y que aparezca en orden
-    $sentencia= $mysqli->prepare("SELECT usuario, date_format(fecha, 'El %d-%m-%Y a las %H:%i') AS fecha, puntuación, reseña FROM reseñas WHERE idProducto=?");
+    $sentencia= $mysqli->prepare("SELECT id, usuario, date_format(fecha, 'El %d-%m-%Y a las %H:%i') AS fecha, puntuación, reseña FROM reseñas WHERE idProducto=?");
     $sentencia->bind_param('i', $idEv);
     $sentencia->execute();
     $res= $sentencia->get_result();
@@ -136,7 +136,7 @@
       for($i = 0; $i <= $numReseñas; $i++){
         $row = $res->fetch_assoc();
 
-        array_push($reseñas, ['usuario' => $row['usuario'], 'fecha' => $row['fecha'], 'puntuación' => $row['puntuación'], 'reseña' => $row['reseña']]);
+        array_push($reseñas, ['id' => $row['id'], 'usuario' => $row['usuario'], 'fecha' => $row['fecha'], 'puntuación' => $row['puntuación'], 'reseña' => $row['reseña']]);
       }
     }
 
@@ -269,6 +269,15 @@
     //Sentencia preparada usada para evitar posibles inyecciones de código
     $sentencia= $mysqli->prepare("INSERT INTO reseñas(idProducto,usuario,fecha,puntuación,reseña) values(?,?,NOW(),?,?)");
     $sentencia->bind_param('isis', $idProducto, $usuario, $puntuacion, $reseña);
+    $sentencia->execute();
+  }
+
+  function eliminarReseña($idReseña){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("DELETE FROM reseñas WHERE id=?");
+    $sentencia->bind_param('i', $idReseña);
     $sentencia->execute();
   }
 

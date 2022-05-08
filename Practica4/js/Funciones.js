@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //Todo esto es para hacerlo síncorno, y hasta que no termina el swal.fire no sigue con el if
 //Esto sirve para obtener valores del swal.fire
-function miFuncion(){
+function verReseñasUsuario(){
   Swal.fire({
       title: "Reseñas",
       html: document.getElementById("ventanareseñas").innerHTML,
@@ -37,6 +37,20 @@ function miFuncion(){
     if (result.isConfirmed){
       añadirReseña();
     }
+  })
+}
+
+// Este es para los usuarios no logeados
+function verReseñas(){
+  Swal.fire({
+      title: "Reseñas",
+      html: document.getElementById("ventanareseñas").innerHTML,
+      showConfirmButton: false,
+      showCloseButton: true,
+      footer: 'Aquí se pueden ver unas reseñas',
+      allowOutsideClick: true,
+      backdrop: true,
+      allowEscapeKey: true,
   })
 }
 
@@ -308,21 +322,20 @@ function añadirProducto(){
       title: "Incluir un nuevo producto",
       html:
         "<form id='formularioProducto' method='post' enctype='multipart/form-data' action='incluirProducto.php' autocomplete='off'>"+
-        "<label for='nombre' class='textformulario'>Nombre:</label>"+
-        "<input type='text' id='nombre' name='nombre' class='swal2-input' placeholder='Nombre'>"+
+          "<label for='nombre' class='textformulario'>Nombre:</label>"+
+          "<input type='text' id='nombre' name='nombre' class='swal2-input' placeholder='Nombre'>"+
 
-        "<br><br>"+
-        "<label for='info' class='textformulario'>Info de la portada:</label>"+
-        '<textarea id="info" name="info" style="height:auto!important;resize: none;" placeholder="Escribe tu reseña." class="swal2-input" rows="6" cols="32" oninput="censuraPalabras()"></textarea>'+
+          "<br><br>"+
+          "<label for='info' class='textformulario'>Info de la portada:</label>"+
+          '<textarea id="info" name="info" style="height:auto!important;resize: none;" placeholder="Escribe tu reseña." class="swal2-input" rows="6" cols="32" oninput="censuraPalabras()"></textarea>'+
 
-        "<br><br>"+
-        "<label for='contenido' class='textformulario'>Contenido:</label>"+
-        '<textarea id="contenido" name="contenido" style="height:auto!important;resize: none;" placeholder="Escribe tu reseña." class="swal2-input" rows="8" cols="32" oninput="censuraPalabras()"></textarea>'+
+          "<br><br>"+
+          "<label for='contenido' class='textformulario'>Contenido:</label>"+
+          '<textarea id="contenido" name="contenido" style="height:auto!important;resize: none;" placeholder="Escribe tu reseña." class="swal2-input" rows="8" cols="32" oninput="censuraPalabras()"></textarea>'+
 
-        "<br><br>"+
-        "<label for='foto' class='textformulario'>Foto portada:</label>"+
-        "<input type='file' id='foto' name='foto'  class='swal2-input'>"+
-
+          "<br><br>"+
+          "<label for='foto' class='textformulario'>Foto portada:</label>"+
+          "<input type='file' id='foto' name='foto'  class='swal2-input'>"+
         "</form>",
         focusConfirm: false,
         heightAuto: false,
@@ -360,4 +373,8 @@ function añadirProducto(){
       document.getElementById("formularioProducto").submit();
     }
   })()
+}
+
+function eliminarReseña(){
+  
 }
