@@ -263,6 +263,15 @@
     $sentencia->execute();
   }
 
+  function añadirReseña($idProducto,$usuario,$puntuacion,$reseña){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("INSERT INTO reseñas(idProducto,usuario,fecha,puntuación,reseña) values(?,?,NOW(),?,?)");
+    $sentencia->bind_param('isis', $idProducto, $usuario, $puntuacion, $reseña);
+    $sentencia->execute();
+  }
+
   // se usa para sacar todos los elementos menos el que se le pasa por ?
   //SELECT * FROM usuarios WHERE is <> ?
 ?>

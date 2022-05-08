@@ -86,6 +86,10 @@
                 </article>
         
                 <section id="ventanareseñas">
+                    {# Elementos para cogerlos en el formulario #}
+                    <p id="nombreUsuario" class="oculto">{{ variablesParaTwig['user']['nombre'] }}</p>
+                    <p id="idProducto" class="oculto">{{ producto['id'] }}</p>
+
                     {% if numReseñas == 0 %}
                         <br>
                         <p><strong>No hay todavía ninguna reseña para este producto</strong></p>
