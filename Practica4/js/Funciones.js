@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     palabrasMal.push(entryElements[i].dataset.entryId);
   }
 
-  //console.log(palabrasMal);
+  console.log(palabrasMal);
 });
 
 //document.addEventListener('error', errorLogin());
@@ -375,6 +375,43 @@ function añadirProducto(){
   })()
 }
 
-function eliminarReseña(){
-  
+function editarReseña(id){
+  (async () => {
+    const { value: formValues } = await Swal.fire({
+      title: "Editar reseña",
+      html: document.getElementById('formularioEditarReseña').innerHTML,
+      /*"<form id='formularioEditarReseña' method='post' enctype='multipart/form-data' action='editarReseña.php' autocomplete='off'>"+
+          "<textarea id='descrip' name='descrip' style='height:auto!important;resize: none;' class='swal2-input' rows='9' cols='32' oninput='censuraPalabras()'>{{ reseñas[i]['reseña'] }}</textarea>"+
+      "</form>",*/
+        focusConfirm: false,
+        heightAuto: false,
+        confirmButtonText: 'Editar',
+        confirmButtonColor: '#64c196',
+        showCloseButton: true,
+        showDenyButton: true,
+        denyButtonText: "Cancelar",
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        
+        preConfirm: () => {
+          /*nombre= document.getElementById('nombre').value;
+          info= document.getElementById('info').value;
+          contenido= document.getElementById('contenido').value;
+
+          //Para comprobar que se han puesto los elementos
+          if (!nombre && !info && !contenido){
+            Swal.showValidationMessage('No has introducido ningún elemento');
+          }else if(!nombre){
+            Swal.showValidationMessage('Falta el nombre');
+          }else if(!info){
+            Swal.showValidationMessage('Falta la información');
+          }else if(!contenido){
+            Swal.showValidationMessage('Falta el contenido');
+          }
+          
+          return [nombre, email, estrellas, descrip]*/
+      }
+    })
+  })()
 }

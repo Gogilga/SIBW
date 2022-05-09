@@ -119,22 +119,24 @@
                                 <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></i> <br/><br></p>
                             {% endif %}
 
-                            <strong>Reseña: </strong> {{ reseñas[i]['reseña'] }}<br/><br/>
-
                             {% if variablesParaTwig['user']['moderador'] %}
-                                <form id='formularioEdReseña' method='post' enctype='multipart/form-data' action='editarReseña.php' autocomplete="off">
+                                <form id='formularioEliminarReseña' method='post' enctype='multipart/form-data' action='editarReseña.php' autocomplete="off">
                                     <input type='text' id='nombre' name="nombre" class="oculto" placeholder='Nombre' value="{{ reseñas[i]['usuario'] }}" readonly>
                 
                                     <input type='text' id='punt' name="punt" class="oculto" value="{{ reseñas[i]['puntuación'] }}" readonly>
 
                                     <input type='text' id='idReseña' name="idReseña" class="oculto" value="{{ reseñas[i]['id'] }}" readonly>
                         
-                                    <textarea id="descrip" name="descrip" style="height:auto!important;resize: none;" class="oculto" rows="9" cols="32" oninput="censuraPalabras()">{{ reseñas[i]['reseña'] }}</textarea>
+                                    <label for="descrip" class='textformulario'>Reseña:</label>
+                                    <textarea id="descrip" name="descrip" style="height:auto!important;resize: none;" class="swal2-input" rows="5" cols="32" oninput="censuraPalabras()">{{ reseñas[i]['reseña'] }}</textarea>
                 
-                                    <input type="submit" value="Eliminar" id="eliminar" class="botonReg">
-                                    <br>
+                                    <input type="submit" value="Eliminar" id="eliminar" name="eliminar" class="botonReg">
+                                    <input type="submit" value="Editar" id="editar" name="editar" class="botonReg">
+                                    <!--button class="botonReg" onclick="editarReseña()">Editar</button-->
+                                    <br><br>
                                 </form>
-                                <br>
+                            {% else %}
+                                <strong>Reseña: </strong> {{ reseñas[i]['reseña'] }}<br/><br/>
                             {% endif %}
                         {% endfor %}
                     {% endif %}

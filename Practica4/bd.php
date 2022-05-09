@@ -281,6 +281,14 @@
     $sentencia->execute();
   }
 
+  function editarReseña($idReseña,$reseña){
+    $mysqli= conexion();
+
+    $sentencia= $mysqli->prepare("UPDATE reseñas SET reseña=? WHERE id=?");
+    $sentencia->bind_param('si', $reseña, $idReseña);
+    $sentencia->execute();
+  }
+
   // se usa para sacar todos los elementos menos el que se le pasa por ?
   //SELECT * FROM usuarios WHERE is <> ?
 ?>
