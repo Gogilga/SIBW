@@ -326,6 +326,10 @@ function añadirProducto(){
           "<input type='text' id='nombre' name='nombre' class='swal2-input' placeholder='Nombre'>"+
 
           "<br><br>"+
+          "<label for='precio' class='textformulario'>Precio:</label>"+
+          "<input type='number' id='precio' name='precio' class='swal2-input' placeholder='Precio'>"+
+
+          "<br><br>"+
           "<label for='info' class='textformulario'>Info de la portada:</label>"+
           '<textarea id="info" name="info" style="height:auto!important;resize: none;" placeholder="Escribe tu reseña." class="swal2-input" rows="6" cols="32" oninput="censuraPalabras()"></textarea>'+
 
@@ -352,6 +356,73 @@ function añadirProducto(){
           nombre= document.getElementById('nombre').value;
           info= document.getElementById('info').value;
           contenido= document.getElementById('contenido').value;
+          foto= document.getElementById('foto').value;
+
+          //Para comprobar que se han puesto los elementos
+          if (!nombre && !info && !contenido && !foto){
+            Swal.showValidationMessage('No has introducido ningún elemento');
+          }else if(!nombre){
+            Swal.showValidationMessage('Falta el nombre');
+          }else if(!info){
+            Swal.showValidationMessage('Falta la información');
+          }else if(!contenido){
+            Swal.showValidationMessage('Falta el contenido');
+          }else if(!foto){
+            Swal.showValidationMessage('Falta la foto para la portada');
+          }
+          
+          return [nombre, email, estrellas, descrip]
+      }
+    })
+    
+    if(formValues) {
+      //Para enviar el formulario
+      document.getElementById("formularioProducto").submit();
+    }
+  })()
+}
+
+function editarProducto(){
+  (async () => {
+    const { value: formValues } = await Swal.fire({
+      title: "Incluir un nuevo producto",
+      html:
+      "<form id='formularioEditarProducto' method='post' enctype='multipart/form-data' action='editarProducto.php' autocomplete='off'>"+
+          "<label for='nombre' class='textformulario'>Nombre:</label>"+
+          "<input type='text' id='nombre' name='nombre' class='swal2-input' placeholder='Nombre'>"+
+
+          "<br><br>"+
+          "<label for='precio' class='textformulario'>Precio:</label>"+
+          "<input type='number' id='precio' name='precio' class='swal2-input' placeholder='Precio'>"+
+
+          "<br><br>"+
+          "<label for='info' class='textformulario'>Info de la portada:</label>"+
+          '<textarea id="info" name="info" style="height:auto!important;resize: none;" placeholder="Escribe tu reseña." class="swal2-input" rows="6" cols="32" oninput="censuraPalabras()"></textarea>'+
+
+          "<br><br>"+
+          "<label for='contenido' class='textformulario'>Contenido:</label>"+
+          '<textarea id="contenido" name="contenido" style="height:auto!important;resize: none;" placeholder="Escribe tu reseña." class="swal2-input" rows="8" cols="32" oninput="censuraPalabras()"></textarea>'+
+
+          "<br><br>"+
+          "<label for='foto' class='textformulario'>Foto portada:</label>"+
+          "<input type='file' id='foto' name='foto'  class='swal2-input'>"+
+        "</form>",
+        focusConfirm: false,
+        heightAuto: false,
+        confirmButtonText: 'Editar producto',
+        confirmButtonColor: '#64c196',
+        showCloseButton: true,
+        showDenyButton: true,
+        denyButtonText: "Cancelar",
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        
+        preConfirm: () => {
+          nombre= document.getElementById('nombre').value;
+          info= document.getElementById('info').value;
+          contenido= document.getElementById('contenido').value;
+          foto= document.getElementById('foto').value;
 
           //Para comprobar que se han puesto los elementos
           if (!nombre && !info && !contenido){
@@ -370,48 +441,31 @@ function añadirProducto(){
     
     if(formValues) {
       //Para enviar el formulario
-      document.getElementById("formularioProducto").submit();
+      document.getElementById("formularioEditarProducto").submit();
     }
   })()
 }
 
-function editarReseña(id){
-  (async () => {
-    const { value: formValues } = await Swal.fire({
-      title: "Editar reseña",
-      html: document.getElementById('formularioEditarReseña').innerHTML,
-      /*"<form id='formularioEditarReseña' method='post' enctype='multipart/form-data' action='editarReseña.php' autocomplete='off'>"+
-          "<textarea id='descrip' name='descrip' style='height:auto!important;resize: none;' class='swal2-input' rows='9' cols='32' oninput='censuraPalabras()'>{{ reseñas[i]['reseña'] }}</textarea>"+
-      "</form>",*/
-        focusConfirm: false,
-        heightAuto: false,
-        confirmButtonText: 'Editar',
-        confirmButtonColor: '#64c196',
-        showCloseButton: true,
-        showDenyButton: true,
-        denyButtonText: "Cancelar",
-        allowOutsideClick: true,
-        backdrop: true,
-        allowEscapeKey: true,
-        
-        preConfirm: () => {
-          /*nombre= document.getElementById('nombre').value;
-          info= document.getElementById('info').value;
-          contenido= document.getElementById('contenido').value;
-
-          //Para comprobar que se han puesto los elementos
-          if (!nombre && !info && !contenido){
-            Swal.showValidationMessage('No has introducido ningún elemento');
-          }else if(!nombre){
-            Swal.showValidationMessage('Falta el nombre');
-          }else if(!info){
-            Swal.showValidationMessage('Falta la información');
-          }else if(!contenido){
-            Swal.showValidationMessage('Falta el contenido');
-          }
-          
-          return [nombre, email, estrellas, descrip]*/
-      }
-    })
-  })()
+//Para la confirmación de eliminar un producto
+function eliminarProducto(){
+  Swal.fire({
+    title: "Eliminar producto",
+    //text: '¿Quieres eliminar este producto?',
+    text: document.getElementById('nombreProducto').innerText.toLocaleLowerCase(),
+    focusConfirm: false,
+    heightAuto: false,
+    confirmButtonText: 'Eliminar',
+    confirmButtonColor: '#64c196',
+    showCloseButton: true,
+    allowOutsideClick: true,
+    showDenyButton: true,
+    denyButtonText: "Cancelar",
+    backdrop: true,
+    allowEscapeKey: true,
+  }).then((result) => {
+    //Si se pulsa el botón de eliminar
+    if(result.isConfirmed){
+      document.getElementById('formularioEliminarProducto').submit();
+    }
+  })
 }

@@ -74,7 +74,9 @@
                 <article id="texto">
                     <p>Precio: {{ producto['precio'] }}€</p>
 
-                    <p>BARRA de sal del Himalaya con forma de jabón, 300gr.</p> 
+                    {{ producto['contenido']|nl2br }}
+
+                    <!--p>BARRA de sal del Himalaya con forma de jabón, 300gr.</p> 
                         
                     <p> Desodorante y exfoliante 100% natural que aporta los beneficios de sus minerales a la piel, pero en un formato cómodo para el uso diario. El bloque de sal se selecciona y pule a mano para darle la forma de jabón (no contiene jabón, es sólo sal). En cocina elimina el olor de pescado, ajo o cebolla de las manos.</p>
                     <p> Algunos usos: </p> 
@@ -88,7 +90,7 @@
                     <p> Frotar suavemente pies, codos o callosidades con la barra de sal, previamente humedecida entre las manos con agua tibia y un aceite, aceite esencial o jabón. Su uso directo en otras zonas puede resultar abrasivo. </p>  
                         
                     <p> Beneficios: </p>  
-                    <p> Relaja, exfolia, mejora la circulación, combate la celulitis y la retención de líquidos, reduce calambres, tirones, dolores reumáticos, la migraña, el acné, equilibra el ph de la piel y desodoriza. </p>
+                    <p> Relaja, exfolia, mejora la circulación, combate la celulitis y la retención de líquidos, reduce calambres, tirones, dolores reumáticos, la migraña, el acné, equilibra el ph de la piel y desodoriza. </p-->
                 </article>
         
                 <section id="ventanareseñas">
@@ -119,6 +121,7 @@
                                 <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></i> <br/><br></p>
                             {% endif %}
 
+                            {# Formulario para eliminar o editar una reseña #}
                             {% if variablesParaTwig['user']['moderador'] %}
                                 <form id='formularioEliminarReseña' method='post' enctype='multipart/form-data' action='editarReseña.php' autocomplete="off">
                                     <input type='text' id='nombre' name="nombre" class="oculto" placeholder='Nombre' value="{{ reseñas[i]['usuario'] }}" readonly>
@@ -132,7 +135,6 @@
                 
                                     <input type="submit" value="Eliminar" id="eliminar" name="eliminar" class="botonReg">
                                     <input type="submit" value="Editar" id="editar" name="editar" class="botonReg">
-                                    <!--button class="botonReg" onclick="editarReseña()">Editar</button-->
                                     <br><br>
                                 </form>
                             {% else %}
@@ -155,8 +157,13 @@
             <p class="titulomenu">Acciones usuario</p>
             <ul class="menu">
                 <li><a href="#" onclick="añadirProducto()">Añadir producto</a></li>
-                {% if variablesParaTwig['user']['moderador'] %}
-                    <li><a href="#">Editar comentarios</a></li>
+                {% if variablesParaTwig['user']['gestor'] %}
+                    <li><a href="#">Editar producto</a></li>
+                    <form id='formularioEliminarProducto' class="oculto" method='post' enctype='multipart/form-data' action='eliminarProducto.php' autocomplete="off">
+                        <input type='text' id='id' name="id" class="oculto" value="{{ producto['id'] }}" readonly>
+                    </form>
+                    <p id="nombreProducto" class="oculto">¿Quieres eliminar {{ producto['nombre'] }}?</p>
+                    <li><a href="#" onclick="eliminarProducto()">Eliminar producto</a></li>
                 {% endif %}
             </ul>
         {% endif %}

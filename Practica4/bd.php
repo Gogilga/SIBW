@@ -60,12 +60,25 @@
     return $producto;
   }
 
-  function incluirProducto($nombre,$info,$contenido,$foto){
+  function incluirProducto($nombre,$info,$contenido,$foto,$precio){
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("INSERT INTO producto(nombre,info,contenido,foto) values(?,?,?,?)");
-    $sentencia->bind_param('ssss', $nombre, $info, $contenido, $foto);
+    $sentencia= $mysqli->prepare("INSERT INTO producto(nombre,info,contenido,foto,precio) values(?,?,?,?,?)");
+    $sentencia->bind_param('ssssd', $nombre, $info, $contenido, $foto, $precio);
+    $sentencia->execute();
+  }
+
+  function editarProducto($nombre,$info,$contenido,$precio){
+
+  }
+
+  function eliminarProducto($id){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("DELETE FROM producto WHERE id=?");
+    $sentencia->bind_param('i', $id);
     $sentencia->execute();
   }
 

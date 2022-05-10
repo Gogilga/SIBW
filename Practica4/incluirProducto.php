@@ -9,6 +9,7 @@
   
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
+    $precio= $_POST['precio'];
     $info= $_POST['info'];
     $contenido= $_POST['contenido'];
     $imagen= $_FILES['foto'];
@@ -22,7 +23,7 @@
 
     if(in_array($imagen['type'],$extensiones)){
         if(move_uploaded_file($imagen['tmp_name'],$ruta_destino_imagenes.$imagen['name'])){
-            incluirProducto($nombre,$info,$contenido,$imagen['name']);
+            incluirProducto($nombre,$info,$contenido,$imagen['name'],$precio);
         }
         else{
             session_start();
