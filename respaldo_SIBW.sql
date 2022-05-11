@@ -77,9 +77,10 @@ CREATE TABLE `producto` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) DEFAULT NULL,
   `info` varchar(200) DEFAULT NULL,
-  `contenido` varchar(500) DEFAULT NULL,
+  `contenido` varchar(8000) DEFAULT NULL,
   `foto` varchar(50) DEFAULT NULL,
   `precio` float DEFAULT NULL,
+  `etiquetas` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -90,7 +91,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'Sal del Himalaya','Jabón de sal de roca del Himalaya 100% pura y natural, acabado suave.','BARRA de sal del Himalaya con forma de jabón, 300gr.','sal_himalaya.png',3),(2,'Champú sólido','Champú con fórmula milenaria que cuida, aporta brillo y protege a tu cabello.','Hola que tal','champu-solido.png',1.5),(3,'Cepillo de dientes','Cerdas suaves para una limpieza bucal completa.','Hola que tal cepillo','cepillo_dientes.png',1),(4,'Gel sólido de ortigas','Para pieles sensibles, hidratante y duradero.','Hola que tal gel','gel_solido.png',6),(5,'Desodorante sólido','Con aceite de ricino que neutraliza y absorbe el malo olor de las axilas.','Hola que tal desodorante','desodorante.png',4.95);
+INSERT INTO `producto` VALUES (1,'Sal del Himalaya','Jabón de sal de roca del Himalaya 100% pura y natural, acabado suave.','BARRA de sal del Himalaya con forma de jabón, 300gr.\r\n\r\nDesodorante y exfoliante 100% natural que aporta los beneficios de sus minerales a la piel, pero en un formato cómodo para el uso diario. El bloque de sal se selecciona y pule a mano para darle la forma de jabón (no contiene jabón, es sólo sal). En cocina elimina el olor de pescado, ajo o cebolla de las manos.\r\n\r\nAlgunos usos:\r\n\r\n1- Desodorante:\r\n\r\nMoja ligeramente la piedra, frotala con las manos y usa ese agua en axilas, pies o cualquier parte del cuerpo. En una solución de sal ninguna bacteria sobrevive, ayuda a impedir el olor y la formación de bacterias. No tapa los poros, no es antitranspirante.\r\n\r\n2. Baño de sal:\r\n\r\nDejar que el jabón se disuelva parcialmente en agua caliente. Usar el agua rica en minerales para relajar y nutrir la piel, puede añadir un aceite esencial.\r\n\r\n3. Exfoliación:\r\n\r\nFrotar suavemente pies, codos o callosidades con la barra de sal, previamente humedecida entre las manos con agua tibia y un aceite, aceite esencial o jabón. Su uso directo en otras zonas puede resultar abrasivo.\r\n\r\nBeneficios:\r\n\r\nRelaja, exfolia, mejora la circulación, combate la celulitis y la retención de líquidos, reduce calambres, tirones, dolores reumáticos, la migraña, el acné, equilibra el ph de la piel y desodoriza.','sal_himalaya.png',3,'jabón,sal,desodorante'),(2,'Champú sólido','Champú con fórmula milenaria que cuida, aporta brillo y protege a tu cabello.','Hola que tal','champu-solido.png',1.5,'champú,ducha'),(3,'Cepillo de dientes','Cerdas suaves para una limpieza bucal completa.','Hola que tal cepillo','cepillo_dientes.png',1,NULL),(4,'Gel sólido de ortigas','Para pieles sensibles, hidratante y duradero.','Hola que tal gel','gel_solido.png',6,NULL),(5,'Desodorante','Con aceite que assadjfuas hljdfhlsajhlfkh laskdjfhlkja shldkjf hlakjsdh fldaddds.','El desodorante sólido Amakandu es un producto orgánico, natural, vegano y no testado en animales. Fabricado en España y certificado.\r\n\r\nFormulado especialmente para neutralizar el mal olor de las axilas, con dos fragancias naturales duraderas a elegir. Muy eficaz, refrescante y cuidadoso con tu piel. No irrita e hidrata.\r\n\r\nNo contiene aluminio ni bicarbonato. Con ingredientes activos protectores, humectantes y antitranspirantes. Con Karité y aloe vera de primerísima calidad.\r\n\r\nEnvase 100% reciclable y sin plástico, respetuoso con el medio ambiente. Apto para llevar en el avión en el equipaje de mano.\r\n\r\nEs de fácil absorción. No engrasa tu piel ni da deja una sensación pegajosa. No es necesario lavarse las manos después de su aplicación.','desodorante.png',4.95,NULL);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +113,7 @@ CREATE TABLE `reseñas` (
   PRIMARY KEY (`id`),
   KEY `id` (`idProducto`),
   CONSTRAINT `reseñas_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +151,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Gogilga','$2y$10$Bv2OZoC5cC2qTh67bJzlse.tN/UWUL7uTiTBnybuP7gFib1BW1TJm','santigilegaza@correo.ugr.es',_binary '',_binary '',_binary ''),(2,'Pepe','$2y$10$XfxLjcJB.54YreU8SOr1y.vEeRMnuu6izd0xAZwSeuQQZGyJ1TT.y','pepe@gmail.com',_binary '\0',_binary '',_binary ''),(3,'Santi','$2y$10$jzCoVUbIQqoXVyuwtpavauRZ.DCkgd6L9Uvfwj.T/1tk9WULcAFoK','santigilegaza@gmail.es',_binary '\0',_binary '\0',_binary ''),(5,'Maria','$2y$10$vM/BlgLMx2n5/9juAcNLr./bjgcL1.sgfJOoE/Iq1sG4NdMLQBjAS','santigilegaza@gmail.com',_binary '\0',_binary '',_binary '');
+INSERT INTO `usuarios` VALUES (1,'Gogilga','$2y$10$Bv2OZoC5cC2qTh67bJzlse.tN/UWUL7uTiTBnybuP7gFib1BW1TJm','santigilegaza@gmail.com',_binary '',_binary '',_binary ''),(2,'Pepe','$2y$10$XfxLjcJB.54YreU8SOr1y.vEeRMnuu6izd0xAZwSeuQQZGyJ1TT.y','pepe@gmail.com',_binary '\0',_binary '',_binary ''),(3,'Santi','$2y$10$jzCoVUbIQqoXVyuwtpavauRZ.DCkgd6L9Uvfwj.T/1tk9WULcAFoK','santigilegaza@gmail.es',_binary '\0',_binary '\0',_binary ''),(5,'Maria','$2y$10$vM/BlgLMx2n5/9juAcNLr./bjgcL1.sgfJOoE/Iq1sG4NdMLQBjAS','santigilegaza@gmail.com',_binary '\0',_binary '',_binary '');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -163,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-09 19:43:27
+-- Dump completed on 2022-05-11 20:34:37

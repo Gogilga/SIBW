@@ -617,6 +617,17 @@ footer{
 	display: none;
 }
 
+#datosUsuario{
+	margin-left: 2%;
+	width: 82rem;
+	height: 100%;
+}
+
+#secusuario{
+	align-items: center;
+	border-style: dotted;
+}
+
 @media only screen and (max-width: 1650px){
 	body{
 		zoom: 80%;

@@ -39,9 +39,14 @@
                 <div class="contenedor">
                     <a href="index.php">Inicio</a>
                     <a href="#">Servicios</a>
-                    <a href="#">Precios</a>
+                    <a href="#">Buscar</a>
                     {% block sesion %}
-                    
+                    {% if not variablesParaTwig.user %}
+                        <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
+                    {% else %}
+                        <a href="usuario.php">{{ variablesParaTwig['user']['nombre'] }}</a>
+                        <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+                    {% endif %}
                     {% endblock %}
                 </div>
             </nav>

@@ -19,6 +19,7 @@
   
   if(isset($_SESSION['nickUsuario'])) {
     $usuario = getUsuario($_SESSION['nickUsuario']);
+    $variablesParaTwig['user'] = getUsuario($_SESSION['nickUsuario']);
 
     //Obtengo todos los usuarios menos el mío si soy superusuario
     if($usuario['super'] == 1){

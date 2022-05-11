@@ -44,32 +44,44 @@
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("SELECT id, nombre, info, contenido, foto, precio FROM producto WHERE id=?");
+    $sentencia= $mysqli->prepare("SELECT id, nombre, info, contenido, foto, precio, etiquetas FROM producto WHERE id=?");
     $sentencia->bind_param('i', $idEv);
     $sentencia->execute();
     $res= $sentencia->get_result();
     
-    $producto = array('id' => 'HHH', 'nombre' => 'XXX', 'info' => 'YYY', 'contenido' => 'ZZZ', 'foto' => 'AAA', 'precio' => 'AAA');
+    $producto = array('id' => 'HHH', 'nombre' => 'XXX', 'info' => 'YYY', 'contenido' => 'ZZZ', 'foto' => 'AAA', 'precio' => 'AAA', 'etiquetas' => 'AAA');
     
     if ($res->num_rows > 0) {
       $row = $res->fetch_assoc();
       
-      $producto = array('id' => $row['id'], 'nombre' => $row['nombre'], 'info' => $row['info'], 'contenido' => $row['contenido'], 'foto' => $row['foto'], 'precio' => $row['precio']);
+      $producto = array('id' => $row['id'], 'nombre' => $row['nombre'], 'info' => $row['info'], 'contenido' => $row['contenido'], 'foto' => $row['foto'], 'precio' => $row['precio'], 'etiquetas' => $row['etiquetas']);
     }
     
     return $producto;
   }
 
-  function incluirProducto($nombre,$info,$contenido,$foto,$precio){
+  function incluirProducto($nombre,$info,$contenido,$foto,$precio,$etiquetas){
     $mysqli= conexion();
 
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("INSERT INTO producto(nombre,info,contenido,foto,precio) values(?,?,?,?,?)");
-    $sentencia->bind_param('ssssd', $nombre, $info, $contenido, $foto, $precio);
+    $sentencia= $mysqli->prepare("INSERT INTO producto(nombre,info,contenido,foto,precio,etiquetas) values(?,?,?,?,?,?)");
+    $sentencia->bind_param('ssssds', $nombre, $info, $contenido, $foto, $precio, $etiquetas);
     $sentencia->execute();
   }
 
-  function editarProducto($nombre,$info,$contenido,$precio){
+  function editarProducto($id,$nombre,$info,$contenido,$precio,$etiquetas,$foto=false){
+    $mysqli= conexion();
+
+    if($foto){
+      $sentencia= $mysqli->prepare("UPDATE producto SET nombre=?,info=?,contenido=?,precio=?,foto=?,etiquetas=? WHERE id=?");
+      $sentencia->bind_param('sssdssi', $nombre, $info, $contenido, $precio, $foto, $etiquetas, $id);
+    }
+    else{
+      $sentencia= $mysqli->prepare("UPDATE producto SET nombre=?,info=?,contenido=?,precio=?,etiquetas=? WHERE id=?");
+      $sentencia->bind_param('sssssi', $nombre, $info, $contenido, $precio, $etiquetas, $id);
+    }
+    
+    $sentencia->execute();
 
   }
 

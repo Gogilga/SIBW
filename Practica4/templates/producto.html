@@ -9,15 +9,6 @@
         {% endif %}
     {% endblock %}
 
-    {% block sesion %}
-        {% if not variablesParaTwig.user %}
-            <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
-        {% else %}
-            <a href="usuario.php">{{ variablesParaTwig['user']['nombre'] }}</a>
-            <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
-        {% endif %}
-    {% endblock %}
-
     {% block central %}
         {% if variablesParaTwig.error %}
             <a href="#" id="error">{{ variablesParaTwig['error'] }}</a>
@@ -72,25 +63,18 @@
 
                 <!--Con la interfaz de isertar productos en la base de datos cambiaré el texto que ahora es común para todos los productos-->
                 <article id="texto">
-                    <p>Precio: {{ producto['precio'] }}€</p>
+                    Precio: {{ producto['precio'] }}€
 
-                    {{ producto['contenido']|nl2br }}
+                    <section id="contenido">{{ producto['contenido']|nl2br }}</section>
 
-                    <!--p>BARRA de sal del Himalaya con forma de jabón, 300gr.</p> 
-                        
-                    <p> Desodorante y exfoliante 100% natural que aporta los beneficios de sus minerales a la piel, pero en un formato cómodo para el uso diario. El bloque de sal se selecciona y pule a mano para darle la forma de jabón (no contiene jabón, es sólo sal). En cocina elimina el olor de pescado, ajo o cebolla de las manos.</p>
-                    <p> Algunos usos: </p> 
-                    <p> 1- Desodorante: </p> 
-                    <p> Moja ligeramente la piedra, frotala con las manos y usa ese agua en axilas, pies o cualquier parte del cuerpo. En una solución de sal ninguna bacteria sobrevive, ayuda a impedir el olor y la formación de bacterias. No tapa los poros, no es antitranspirante.</p> 
-                        
-                    <p> 2. Baño de sal: </p> 
-                    <p> Dejar que el jabón se disuelva parcialmente en agua caliente. Usar el agua rica en minerales para relajar y nutrir la piel, puede añadir un aceite esencial. </p> 
-                        
-                    <p> 3. Exfoliación: </p>
-                    <p> Frotar suavemente pies, codos o callosidades con la barra de sal, previamente humedecida entre las manos con agua tibia y un aceite, aceite esencial o jabón. Su uso directo en otras zonas puede resultar abrasivo. </p>  
-                        
-                    <p> Beneficios: </p>  
-                    <p> Relaja, exfolia, mejora la circulación, combate la celulitis y la retención de líquidos, reduce calambres, tirones, dolores reumáticos, la migraña, el acné, equilibra el ph de la piel y desodoriza. </p-->
+                    {% if producto['etiquetas'] %}
+                        <br><br>
+
+                        Etiquetas: <section id="etiq">{{ producto['etiquetas'] }}</section>
+                    {% else %}
+                        <section id="etiq" class="oculto">{{ producto['etiquetas'] }}</section>
+                    {% endif %}
+
                 </article>
         
                 <section id="ventanareseñas">
@@ -158,7 +142,11 @@
             <ul class="menu">
                 <li><a href="#" onclick="añadirProducto()">Añadir producto</a></li>
                 {% if variablesParaTwig['user']['gestor'] %}
-                    <li><a href="#">Editar producto</a></li>
+                    <p id="info" class="oculto">{{ producto['info'] }}</p>
+                    <p id="precio" class="oculto">{{ producto['precio'] }}</p>
+                    <p id="idProc" class="oculto">{{ producto['id'] }}</p>
+                    <li><a href="#" onclick="editarProducto()">Editar producto</a></li>
+
                     <form id='formularioEliminarProducto' class="oculto" method='post' enctype='multipart/form-data' action='eliminarProducto.php' autocomplete="off">
                         <input type='text' id='id' name="id" class="oculto" value="{{ producto['id'] }}" readonly>
                     </form>

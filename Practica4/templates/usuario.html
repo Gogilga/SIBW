@@ -9,15 +9,6 @@
         {% endif %}
     {% endblock %}
 
-    {% block sesion %}
-        {% if not usuario %}
-            <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
-        {% else %}
-            <a href="#">{{ usuario['nombre'] }}</a>
-            <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
-        {% endif %}
-    {% endblock %}
-
     {% block central %}
     
     {% if variablesParaTwig.error %}
