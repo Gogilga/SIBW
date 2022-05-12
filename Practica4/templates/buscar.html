@@ -1,0 +1,29 @@
+{% extends "padre.html" %}
+    {% block titulo %}
+    {{ usuario['nombre'] }}
+    {% endblock %}
+
+    {% block carga %}
+        {% if variablesParaTwig.error %}
+            onload="errores()"
+        {% endif %}
+    {% endblock %}
+
+    {% block central %}
+    
+    {% if variablesParaTwig.error %}
+        <a href="#" id="error" onclick="errores()">{{ variablesParaTwig['error'] }}</a>
+    {% endif %}
+
+    <section id="cuerpo">
+        <section id="buscar">
+            <form id='formulariobuscar' method='post' enctype='multipart/form-data' action='buscarProducto.php' autocomplete="off">
+                <input type='text' id='busqueda' name="busqueda" class="swal2-input" size="120" placeholder='Buscar' autofocus>
+
+                <input type="submit" value="Buscar" class="botonReg">
+                <br>
+            </form>
+
+            <br><br>
+        </section>
+    {% endblock %}
