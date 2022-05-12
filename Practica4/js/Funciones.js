@@ -495,3 +495,4 @@ function valida_longitud(){
 
   return num_caracteres;
 }
+

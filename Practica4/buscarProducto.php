@@ -9,10 +9,21 @@
   
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $buscar= $_POST['busqueda'];
+
+    $res= getProductoBusqueda($buscar);
+
+    if(empty($res)){
+      session_start();
     
-    // Para volver a la página de la que es llamado anteriormente
-    $pag= $_SERVER['HTTP_REFERER'];
-    header("Location: $pag");
+      $_SESSION['error']= 'No hay resultado para '.$buscar;
+    }else{
+      session_start();
+
+      $_SESSION['buscar']= true;
+      $_SESSION['resultadoBusqueda']= $res;
+    }
+
+    header("Location: buscar.php");
     
     exit();
   }

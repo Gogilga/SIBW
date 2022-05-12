@@ -21,5 +21,11 @@
     unset($_SESSION['error']);
   }
 
-  echo $twig->render('buscar.html', ['variablesParaTwig' => $variablesParaTwig]);
+  if($_SESSION['buscar']){
+    $productos = $_SESSION['resultadoBusqueda'];
+
+    $numProductos= count($productos)-1;
+  }
+
+  echo $twig->render('buscar.html', ['variablesParaTwig' => $variablesParaTwig, 'productos' => $productos, 'numProductos' => $numProductos]);
 ?>
