@@ -21,6 +21,7 @@
 
       $_SESSION['buscar']= true;
       $_SESSION['resultadoBusqueda']= $res;
+      $_SESSION['palabraBusqueda']= $buscar;
     }
 
     header("Location: buscar.php");

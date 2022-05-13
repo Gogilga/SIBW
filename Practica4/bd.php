@@ -92,6 +92,15 @@
     $sentencia->execute();
   }
 
+  function añadirImagen($id,$foto){
+    $mysqli= conexion();
+
+    //Sentencia preparada usada para evitar posibles inyecciones de código
+    $sentencia= $mysqli->prepare("INSERT INTO fotos(idProducto,foto) values(?,?)");
+    $sentencia->bind_param('is', $id, $foto);
+    $sentencia->execute();
+  }
+
   function editarProducto($id,$nombre,$info,$contenido,$precio,$etiquetas,$foto=false){
     $mysqli= conexion();
 

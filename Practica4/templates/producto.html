@@ -147,6 +147,9 @@
                     <p id="idProc" class="oculto">{{ producto['id'] }}</p>
                     <li><a href="#" onclick="editarProducto()">Editar producto</a></li>
 
+                    {% if numFotos < 2 %}
+                        <li><a href="#" onclick="añadirFoto()">Añadir imagen</a></li>
+                    {% endif %}
                     <form id='formularioEliminarProducto' class="oculto" method='post' enctype='multipart/form-data' action='eliminarProducto.php' autocomplete="off">
                         <input type='text' id='id' name="id" class="oculto" value="{{ producto['id'] }}" readonly>
                     </form>

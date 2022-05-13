@@ -10,11 +10,26 @@
   
   if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    foreach ($_POST as $key => $value){
-        $rol= substr($key, 0, -1);
-        $usuario= intval(substr($key, -1));
+    foreach ($_POST as $key => $usuario){
+        //$usuario= intval(substr($key, -1));
 
-        cambiarRol($rol,$usuario,1);
+        if(!isset($_POST['super'.$usuario])){
+          cambiarRol('super',$usuario,0);
+        }else{
+          cambiarRol('super',$usuario,1);
+        }
+
+        if(!isset($_POST['moderador'.$usuario])){
+          cambiarRol('moderador',$usuario,0);
+        }else{
+          cambiarRol('moderador',$usuario,1);
+        }
+
+        if(!isset($_POST['gestor'.$usuario])){
+          cambiarRol('gestor',$usuario,0);
+        }else{
+          cambiarRol('gestor',$usuario,1);
+        }
     }
     
     header("Location: usuario.php");

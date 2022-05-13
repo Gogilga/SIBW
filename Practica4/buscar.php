@@ -23,9 +23,10 @@
 
   if($_SESSION['buscar']){
     $productos = $_SESSION['resultadoBusqueda'];
+    $palabra= $_SESSION['palabraBusqueda'];
 
     $numProductos= count($productos)-1;
   }
 
-  echo $twig->render('buscar.html', ['variablesParaTwig' => $variablesParaTwig, 'productos' => $productos, 'numProductos' => $numProductos]);
+  echo $twig->render('buscar.html', ['variablesParaTwig' => $variablesParaTwig, 'productos' => $productos, 'numProductos' => $numProductos, 'palabra' => $palabra]);
 ?>

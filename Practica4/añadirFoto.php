@@ -7,12 +7,8 @@
   
 
   
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'];
-    $precio= $_POST['precioañadir'];
-    $info= $_POST['infoprod'];
-    $contenido= $_POST['contenido'];
-    $etiquetas= $_POST['etiquetas'];
+  if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $id= $_POST['idProc'];
     $imagen= $_FILES['foto'];
 
     $ruta_destino_imagenes= dirname(realpath(__FILE__)).'/imagenes/';
@@ -22,7 +18,7 @@
 
     if(in_array($imagen['type'],$extensiones)){
         if(move_uploaded_file($imagen['tmp_name'],$ruta_destino_imagenes.$imagen['name'])){
-            incluirProducto($nombre,$info,$contenido,$imagen['name'],$precio,$etiquetas);
+            añadirImagen($id,$imagen['name']);
         }
         else{
             session_start();
@@ -36,7 +32,9 @@
         $_SESSION['error']= 'La imagen no es compatible, tiene que ser png, jpeg o jpg';
     }
     
-    header("Location: index.php");
+    // Para volver a la página de la que es llamado anteriormente
+    $pag= $_SERVER['HTTP_REFERER'];
+    header("Location: $pag");
     
     exit();
   }

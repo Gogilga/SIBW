@@ -354,7 +354,7 @@ function añadirProducto(){
           "<input type='number' id='precioañadir' name='precioañadir' class='swal2-input'>"+
 
           "<br><br>"+
-          "<label for='info' class='textformulario'>Info: </label> <br>"+
+          "<label for='infoprod' class='textformulario'>Info: </label> <br>"+
           '<textarea id="infoprod" name="infoprod" onKeyDown="valida_longitud()" style="height:auto!important;resize: none;" placeholder="Escribe tu info." class="swal2-input" rows="9" cols="32" oninput="censuraPalabras()"></textarea>'+
 
           "<br><br>"+
@@ -382,10 +382,8 @@ function añadirProducto(){
         preConfirm: () => {
           nombre= document.getElementById('nombre').value;
           precio= document.getElementById('precioañadir').value;
-          info= document.getElementById('infoañadir').value;
+          info= document.getElementById('infoprod').value;
           contenido= document.getElementById('descrip').value;
-
-          console.log(precio);
 
           //Para comprobar que se han puesto los elementos
           if(!info && !nombre && !contenido && !precio){
@@ -398,7 +396,7 @@ function añadirProducto(){
             Swal.showValidationMessage('Falta el contenido');
           }
           
-          return [id, nombre, precio, info, contenido]
+          return [nombre, precio, info, contenido]
       }
     })
     
@@ -496,3 +494,47 @@ function valida_longitud(){
   return num_caracteres;
 }
 
+
+function añadirFoto(){
+  (async () => {
+    const { value: formValues } = await Swal.fire({
+      title: "Añadir foto",
+      html: 
+        "<form id='formulariofoto' method='post' enctype='multipart/form-data' action='añadirFoto.php'>"+
+          "<input type='text' id='idProc' name='idProc' class='oculto' value="+document.getElementById('idProc').innerText+">"+
+
+          "<br><br>"+
+          "<label for='foto' class='textformulario'>Foto:</label>"+
+          "<input type='file' id='foto' name='foto'  class='swal2-input'>"+
+        "</form>",
+        focusConfirm: false,
+        heightAuto: false,
+        confirmButtonText: 'Añadir',
+        confirmButtonColor: '#64c196',
+        showCloseButton: true,
+        showDenyButton: true,
+        denyButtonText: "Cancelar",
+        allowOutsideClick: true,
+        backdrop: true,
+        allowEscapeKey: true,
+        preConfirm: () => {
+          id= document.getElementById('idProc').value;
+          foto= document.getElementById('foto').value;
+
+          console.log(precio);
+
+          //Para comprobar que se han puesto los elementos
+          if(!foto){
+            Swal.showValidationMessage('Falta la foto');
+          }
+          
+          return [id, foto]
+      }
+    })
+    
+    if(formValues) {
+      //Para enviar el formulario
+      document.getElementById("formulariofoto").submit();
+    }
+  })()
+}
