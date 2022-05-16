@@ -1,0 +1,161 @@
+{% extends "padre.html" %}
+    {% block titulo %}
+        {{ producto['nombre'] }}
+    {% endblock %}
+
+    {% block carga %}
+        {% if variablesParaTwig.error %}
+            onload="errores()"
+        {% endif %}
+    {% endblock %}
+
+    {% block central %}
+        {% if variablesParaTwig.error %}
+            <a href="#" id="error">{{ variablesParaTwig['error'] }}</a>
+        {% endif %}
+
+        <section class="producto">
+            <h1 id="tit">{{ producto['nombre'] }}</h1>
+
+                <!--Slider de fotos-->
+                <div id="fotos">
+                    <ul class="slider">
+                    <li id="slide0">
+                        <img src="imagenes/{{ producto['foto'] }}"/>
+                    </li>
+
+                    {% if numFotos != 0 %}
+                        {% for i in 0..numFotos-1 %}
+                            <li id="slide{{ i+1 }}">
+                                <img src="imagenes/{{ fotos[i]['foto'] }}"/>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    <!--<li id="slide3">
+                        <h1>Ejemplo con otros elementos</h1>
+                        <p>Esto es un párrafo de ejemplo para comprobar que podemos meter cualquier tipo de elementos en el slider</p>
+                    </li>-->
+                    </ul>
+                    
+                    <ul class="menu">
+                    <li>
+                        <a href="#slide0">1</a>
+                    </li>
+
+                    {% if numFotos != 0 %}
+                        {% for i in 0..numFotos-1 %}
+                            <li>
+                                <a href="#slide{{ i+1 }}">{{ i+2 }}</a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+                    
+                </div>
+
+                <a class="boton" href="producto_imprimir.php?ev={{ producto['id'] }}">Imprimir</a>
+                {% if not variablesParaTwig.user %}
+                    <a class="boton" id="reseñas" onclick="verReseñas()">Reseñas</a>
+                {% else %}
+                    <a class="boton" id="reseñas" onclick="verReseñasUsuario()">Reseñas</a>
+                {% endif %}
+                
+
+                <!--Con la interfaz de isertar productos en la base de datos cambiaré el texto que ahora es común para todos los productos-->
+                <article id="texto">
+                    Precio: {{ producto['precio'] }}€
+
+                    <section id="contenido">{{ producto['contenido']|nl2br }}</section>
+
+                    {% if producto['etiquetas'] %}
+                        <br><br>
+
+                        Etiquetas: <section id="etiq">{{ producto['etiquetas'] }}</section>
+                    {% else %}
+                        <section id="etiq" class="oculto">{{ producto['etiquetas'] }}</section>
+                    {% endif %}
+
+                </article>
+        
+                <section id="ventanareseñas">
+                    {# Elementos para cogerlos en el formulario #}
+                    <p id="nombreUsuario" class="oculto">{{ variablesParaTwig['user']['nombre'] }}</p>
+                    <p id="idProducto" class="oculto">{{ producto['id'] }}</p>
+
+                    {% if numReseñas == 0 %}
+                        <br>
+                        <p><strong>No hay todavía ninguna reseña para este producto</strong></p>
+                        <br>
+                    {% else %}
+                        {% for i in 0..numReseñas-1 %}
+                            <hr><br>
+                            <p><strong>Usuario: </strong> {{ reseñas[i]['usuario'] }}</p> <br>
+                            <p><strong>Fecha y hora: </strong> {{ reseñas[i]['fecha'] }} </p> <br>
+
+                            <!--Para el sistema de putuación por estrellas-->
+                            {% if reseñas[i]['puntuación'] == 1 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 2 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 3 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 4 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> <br/><br></p>
+                            {% elseif reseñas[i]['puntuación'] == 5 %}
+                                <p><strong>Puntuación: </strong> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></i> <br/><br></p>
+                            {% endif %}
+
+                            {# Formulario para eliminar o editar una reseña #}
+                            {% if variablesParaTwig['user']['moderador'] %}
+                                <form id='formularioEliminarReseña' method='post' enctype='multipart/form-data' action='editarReseña.php' autocomplete="off">
+                                    <input type='text' id='nombre' name="nombre" class="oculto" placeholder='Nombre' value="{{ reseñas[i]['usuario'] }}" readonly>
+                
+                                    <input type='text' id='punt' name="punt" class="oculto" value="{{ reseñas[i]['puntuación'] }}" readonly>
+
+                                    <input type='text' id='idReseña' name="idReseña" class="oculto" value="{{ reseñas[i]['id'] }}" readonly>
+                        
+                                    <label for="descrip" class='textformulario'>Reseña:</label>
+                                    <textarea id="descrip" name="descrip" style="height:auto!important;resize: none;" class="swal2-input" rows="5" cols="32" oninput="censuraPalabras()">{{ reseñas[i]['reseña'] }}</textarea>
+                
+                                    <input type="submit" value="Eliminar" id="eliminar" name="eliminar" class="botonReg">
+                                    <input type="submit" value="Editar" id="editar" name="editar" class="botonReg">
+                                    <br><br>
+                                </form>
+                            {% else %}
+                                <strong>Reseña: </strong> {{ reseñas[i]['reseña'] }}<br/><br/>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </section>
+
+                {# Añado las palabras censuradas para poder cogerlas después con javaScript #}
+                {% for entry in censura %}
+                    <p class="censura" data-entry-id="{{ entry.palabra }}">
+                        {{ entry.palabra }}
+                    </p>
+                {% endfor %}
+    {% endblock %}
+
+    {% block menu %}
+        {% if variablesParaTwig.user %}
+            <p class="titulomenu">Acciones usuario</p>
+            <ul class="menu">
+                <li><a href="#" onclick="añadirProducto()">Añadir producto</a></li>
+                {% if variablesParaTwig['user']['gestor'] %}
+                    <p id="info" class="oculto">{{ producto['info'] }}</p>
+                    <p id="precio" class="oculto">{{ producto['precio'] }}</p>
+                    <p id="idProc" class="oculto">{{ producto['id'] }}</p>
+                    <li><a href="#" onclick="editarProducto()">Editar producto</a></li>
+
+                    {% if numFotos < 2 %}
+                        <li><a href="#" onclick="añadirFoto()">Añadir imagen</a></li>
+                    {% endif %}
+                    <form id='formularioEliminarProducto' class="oculto" method='post' enctype='multipart/form-data' action='eliminarProducto.php' autocomplete="off">
+                        <input type='text' id='id' name="id" class="oculto" value="{{ producto['id'] }}" readonly>
+                    </form>
+                    <p id="nombreProducto" class="oculto">¿Quieres eliminar {{ producto['nombre'] }}?</p>
+                    <li><a href="#" onclick="eliminarProducto()">Eliminar producto</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    {% endblock %}

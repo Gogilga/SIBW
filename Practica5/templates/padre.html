@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block titulo %}{% endblock %}</title>
+        <!--Script para incluir el kit de fontawesome para los iconos-->
+        <script src="https://kit.fontawesome.com/ae8a26a94d.js" crossorigin="anonymous"></script>
+        {% block head %}
+            <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        {% endblock %}
+        <link rel="ico" href="favicon.ico"/>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400&family=Quicksand&display=swap" rel="stylesheet">
+
+        <link href="http://fonts.cdnfonts.com/css/woodland" rel="stylesheet">
+
+        <!--Para la alerta que saldra con la informacion de las reseñas en el producto-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.2/sweetalert2.min.css">
+        <script src="js/Funciones.js"></script>
+    </head>
+
+    <body {% block carga %}{% endblock %}>
+        
+        <header>
+            <section id="portada">
+                <img src="imagenes/logo9.png" alt="logo" id="logo">
+            </section>
+
+            <!--Menú principal-->
+            <nav class="navbar">
+                <div class="contenedor">
+                    <a href="index.php">Inicio</a>
+                    <a href="#">Servicios</a>
+                    <a href="buscar.php">Buscar</a>
+                    {% block sesion %}
+                    {% if not variablesParaTwig.user %}
+                        <a href="#" onclick="iniciarSesion()">Iniciar sesión</a>
+                    {% else %}
+                        <a href="usuario.php">{{ variablesParaTwig['user']['nombre'] }}</a>
+                        <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+                    {% endif %}
+                    {% endblock %}
+                </div>
+            </nav>
+        </header>
+
+        <!--Cuerpo principal de productos-->
+            {% block central %}
+            <section id="cuerpo">
+
+            
+            {% endblock %}
+    
+            <!--Menu de la derecha-->
+            <aside class="div10" id="menudecha">
+                <h1 id="titdecha">Secciones</h1>
+                <hr>
+    
+                {% block menu %}
+                
+                {% endblock %}
+
+                <p class="titulomenu">Higiene personal</p>
+                    <ul class="menu">
+                        <li><a href="#">Cuidado corporal</a></li>
+                        <li><a href="#">Cuidado facial</a></li>
+                        <li><a href="#">Higiene bucal</a></li>
+                        <li><a href="#">Cuidado del cabello</a></li>
+                        <li><a href="#">Higiene íntima</a></li>
+                    </ul>
+
+                <p class="titulomenu">Hogar</p>
+                    <ul class="menu">
+                        <li><a href="#">Productos de limpieza ecológicos</a></li>
+                        <li><a href="#">Menaje de cocina</a></li>
+                        <li><a href="#">Cepillos y estropajos</a></li>
+                    </ul>
+            </aside>
+        </section>
+
+
+        <footer>
+            <div id="redes">
+                <a href="https://es-es.facebook.com"><span>Facebook</span></a>
+                <a href="https://twitter.com/home?lang=es"><span>Twitter</span></a>
+                <a href="https://www.instagram.com/?hl=es"><span>Instagram</span></a>
+                <a href="mailto:santigilegaza@correo.ugr.es"><span>Correo</span></a>
+            </div>
+
+            <i class="fa-regular fa-copyright"> Santiago Gil Legaza</i>
+        </footer>
+        
+    </body>
+</html>
