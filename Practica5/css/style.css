@@ -635,20 +635,33 @@ footer{
 	box-shadow: 2px 2px 8px 0 rgba(0,0,0,.2);
     height: auto;
     position: absolute;
+	background-color: #fff;
     /*top: 45px;
     z-index: 9999;*/
-    width: 206px;
+    /*width: 206px;*/
+    width: 34%;
+    float: left;
+	margin-left: 3%;
 }
 
 #sugerencias .sugerencia-element{
-	background-color: #EEEEEE;
+	color: black;
+	font-size: large;
+	text-decoration: none;
+	text-align: center;
     border-top: 1px solid #d6d4d4;
     cursor: pointer;
     padding: 8px;
-    width: 84%;
+    width: 97.5%;
     float: left;
-	margin-left: 3%;
-	margin-top: 1%;
+}
+
+.sugerencia-element:link, .sugerencia-element:visited, .sugerencia-element:active{
+	text-decoration: none;
+}
+
+#sugerencias .sugerencia-element:hover{
+	background-color: rgba(100, 193, 150, 0.164);
 }
 
 @media only screen and (max-width: 1650px){

@@ -23,7 +23,8 @@ function procesaRespuestaAjax(respuesta) {
     res = "";
 
     for (i = 0 ; i < respuesta.length ; i++){
-        res += "<div><a class='sugerencia-element' data=" + respuesta[i].nombre + " id=" + respuesta[i].id + ">" + respuesta[i].nombre + "</a></div>"
+        console.log(respuesta[i].id)
+        res += "<div><a href='producto.php?ev="+ respuesta[i].id +"' class='sugerencia-element' data=" + respuesta[i].nombre + " id=" + respuesta[i].id + ">" + respuesta[i].nombre + "</a></div>"
     }
     
     $("#sugerencias").html(res);
