@@ -65,15 +65,15 @@
 
     $pal= "%".$palabra."%";
     //Sentencia preparada usada para evitar posibles inyecciones de código
-    $sentencia= $mysqli->prepare("SELECT id, nombre, info, foto FROM producto WHERE contenido LIKE ? OR etiquetas LIKE ?");
-    $sentencia->bind_param('ss', $pal, $pal);
+    $sentencia= $mysqli->prepare("SELECT id, nombre, info, foto FROM producto WHERE contenido LIKE ? OR etiquetas LIKE ? OR nombre LIKE ?");
+    $sentencia->bind_param('sss', $pal, $pal, $pal);
     $sentencia->execute();
     $res= $sentencia->get_result();
     
     $productos= Array();
 
     if($res->num_rows > 0){
-      for($i = 0; $i <= $res->num_rows; $i++){
+      for($i = 0; $i < $res->num_rows; $i++){
         $row = $res->fetch_assoc();
 
         array_push($productos, ['id' => $row['id'], 'nombre' => $row['nombre'], 'info' => $row['info'], 'foto' => $row['foto']]);

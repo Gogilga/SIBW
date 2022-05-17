@@ -2,31 +2,12 @@
   require_once "/usr/local/lib/php/vendor/autoload.php";
   include("bd.php");
   
+  header('Content-Type: application/json');
 
-  $loader = new \Twig\Loader\FilesystemLoader('templates');
-  $twig = new \Twig\Environment($loader);
+  $buscar= $_POST['key'];
 
-  //Control de sesiones
-  $variablesParaTwig = [];
-  
-  session_start();
-  
-  if(isset($_SESSION['nickUsuario'])) {
-    $variablesParaTwig['user'] = getUsuario($_SESSION['nickUsuario']);
-  }
-  
-  if(isset($_SESSION['error'])){
-    $variablesParaTwig['error'] = $_SESSION['error'];
+  $res= getProductoBusqueda($buscar);
 
-    unset($_SESSION['error']);
-  }
+  echo(json_encode($res));
 
-  if($_SESSION['buscar']){
-    $productos = $_SESSION['resultadoBusqueda'];
-    $palabra= $_SESSION['palabraBusqueda'];
-
-    $numProductos= count($productos)-1;
-  }
-
-  echo $twig->render('buscar.html', ['variablesParaTwig' => $variablesParaTwig, 'productos' => $productos, 'numProductos' => $numProductos, 'palabra' => $palabra]);
 ?>

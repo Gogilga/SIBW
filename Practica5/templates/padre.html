@@ -11,6 +11,8 @@
         {% endblock %}
         <link rel="ico" href="favicon.ico"/>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400&display=swap" rel="stylesheet">
@@ -24,7 +26,9 @@
         <!--Para la alerta que saldra con la informacion de las reseñas en el producto-->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.2/sweetalert2.min.css">
-        <script src="js/Funciones.js"></script>
+        {% block incluir %}
+            <script src="js/Funciones.js"></script>
+        {% endblock %}
     </head>
 
     <body {% block carga %}{% endblock %}>
