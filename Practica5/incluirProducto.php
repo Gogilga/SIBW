@@ -5,8 +5,6 @@
   $loader = new \Twig\Loader\FilesystemLoader('templates');
   $twig = new \Twig\Environment($loader);
   
-
-  
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $precio= $_POST['precioañadir'];
@@ -15,26 +13,34 @@
     $etiquetas= $_POST['etiquetas'];
     $imagen= $_FILES['foto'];
 
+    $sinpublicar= $_POST['sinpublicar'];
+
     $ruta_destino_imagenes= dirname(realpath(__FILE__)).'/imagenes/';
 
     //Solo admito estas extensiones
     $extensiones = array(0=>'image/jpg',1=>'image/jpeg',2=>'image/png');
 
     if(in_array($imagen['type'],$extensiones)){
-        if(move_uploaded_file($imagen['tmp_name'],$ruta_destino_imagenes.$imagen['name'])){
-            incluirProducto($nombre,$info,$contenido,$imagen['name'],$precio,$etiquetas);
+      if(move_uploaded_file($imagen['tmp_name'],$ruta_destino_imagenes.$imagen['name'])){
+        if(!empty($sinpublicar)){
+          incluirProducto($nombre,$info,$contenido,$imagen['name'],$precio,$etiquetas,0);
+        }else{
+          incluirProducto($nombre,$info,$contenido,$imagen['name'],$precio,$etiquetas,1);
         }
-        else{
-            session_start();
+      }
+      else{
+          session_start();
   
-            $_SESSION['error']= 'La imagen no se ha podido guardar';
-        }
+          $_SESSION['error']= 'La imagen no se ha podido guardar';
+      }
     }
     else{
         session_start();
   
         $_SESSION['error']= 'La imagen no es compatible, tiene que ser png, jpeg o jpg';
     }
+
+    
     
     header("Location: index.php");
     

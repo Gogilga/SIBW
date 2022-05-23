@@ -1,0 +1,48 @@
+{% extends "padre.html" %}
+    {% block titulo %}
+        Green
+    {% endblock %}
+
+    {% block carga %}
+        {% if variablesParaTwig.error %}
+            onload="errores()"
+        {% endif %}
+    {% endblock %}
+
+    {% block central %}
+
+    {% if variablesParaTwig.error %}
+        <a href="#" id="error" onclick="errores()">{{ variablesParaTwig['error'] }}</a>
+    {% endif %}
+
+    <section id="cuerpo">
+        <section class="productos">
+            <!--Bucle para colocar los productos en el grid central-->
+            {% for i in 0..numProductos-1 %}
+            <section id="caja">
+                <a href="producto.php?ev={{ productos[i]['id'] }}" class="div1">
+                    <article class="caja-principal">
+                        <div class="imagen">
+                            <img src="imagenes/{{ productos[i]['foto']  }}" alt="">
+                        </div>
+                        <div class="texto">
+                            <h2>{{ productos[i]['nombre'] }}</h2>
+                            <br>
+                            <p>{{ productos[i]['info'] }}</p>
+                        </div>
+                    </article>
+                </a>
+            </section>
+            {% endfor %}
+        </section>
+    {% endblock %}
+
+    {% block menu %}
+        {% if variablesParaTwig.user %}
+            <p class="titulomenu">Acciones usuario</p>
+            <ul class="menu">
+                <li><a href="#" onclick="añadirProducto()">Añadir producto</a></li>
+                <li><a href="index.php">Productos publicados</a></li>
+            </ul>
+        {% endif %}
+    {% endblock %}

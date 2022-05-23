@@ -19,6 +19,10 @@
         <a href="#" id="error" onclick="errores()">{{ variablesParaTwig['error'] }}</a>
     {% endif %}
 
+    {% if variablesParaTwig.user %}
+        <p id="tipoUsuario" class="oculto">{{ variablesParaTwig['user']['gestor'] }}</p>
+    {% endif %}
+
     <section id="cuerpo">
         <section id="buscar">
             <form id='formulariobuscar' method='post' enctype='multipart/form-data' action='buscarProducto.php' autocomplete="off">

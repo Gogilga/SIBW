@@ -340,6 +340,30 @@ function eliminarProducto(){
   })
 }
 
+//Para la confirmación de publicar un producto
+function publicarProducto(){
+  Swal.fire({
+    title: "Eliminar producto",
+    //text: '¿Quieres eliminar este producto?',
+    text: document.getElementById('nombreProducto2').innerText.toLocaleLowerCase(),
+    focusConfirm: false,
+    heightAuto: false,
+    confirmButtonText: 'Publicar',
+    confirmButtonColor: '#64c196',
+    showCloseButton: true,
+    allowOutsideClick: true,
+    showDenyButton: true,
+    denyButtonText: "Cancelar",
+    backdrop: true,
+    allowEscapeKey: true,
+  }).then((result) => {
+    //Si se pulsa el botón de eliminar
+    if(result.isConfirmed){
+      document.getElementById('formularioPublicarProducto').submit();
+    }
+  })
+}
+
 //Funcion que usa la libreria sweetalert2 para mostrar la pantalla emergente con el formulario
 function añadirProducto(){
   (async () => {
@@ -368,7 +392,9 @@ function añadirProducto(){
           "<br><br>"+
           "<label for='foto' class='textformulario'>Foto portada:</label>"+
           "<input type='file' id='foto' name='foto'  class='swal2-input'>"+
-        "</form>",
+          '<input type="submit" value="Añadir sin publicar" id="sinpublicar" name="sinpublicar" class="botonReg">'+
+        "</form>",//+
+        //'<button id="sinpublicar" onclick="registrar()" class="botonReg">Añadir sin publicar</button>',
         focusConfirm: false,
         heightAuto: false,
         confirmButtonText: 'Añadir producto',
@@ -537,4 +563,8 @@ function añadirFoto(){
       document.getElementById("formulariofoto").submit();
     }
   })()
+}
+
+function productosSinPublicar(){
+
 }

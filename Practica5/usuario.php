@@ -1,6 +1,5 @@
 <?php
   require_once "/usr/local/lib/php/vendor/autoload.php";
-  require_once 'bdUsuarios.php';
   include("bd.php");
   
   $loader = new \Twig\Loader\FilesystemLoader('templates');
@@ -24,10 +23,9 @@
     //Obtengo todos los usuarios menos el mío si soy superusuario
     if($usuario['super'] == 1){
       $usuarios= getUsuarios($usuario['id']);
+      $numUsuarios= count($usuarios);
     }
   }
-
-  $numUsuarios= count($usuarios);
 
   
   if(isset($_SESSION['error'])){
