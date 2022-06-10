@@ -134,7 +134,7 @@
     }
     else{
       $sentencia= $mysqli->prepare("UPDATE producto SET nombre=?,info=?,contenido=?,precio=?,etiquetas=? WHERE id=?");
-      $sentencia->bind_param('sssssi', $nombre, $info, $contenido, $precio, $etiquetas, $id);
+      $sentencia->bind_param('sssdsi', $nombre, $info, $contenido, $precio, $etiquetas, $id);
     }
     
     $sentencia->execute();

@@ -320,7 +320,6 @@ function editarOtrosUsuarios(){
 function eliminarProducto(){
   Swal.fire({
     title: "Eliminar producto",
-    //text: '¿Quieres eliminar este producto?',
     text: document.getElementById('nombreProducto').innerText.toLocaleLowerCase(),
     focusConfirm: false,
     heightAuto: false,
@@ -343,8 +342,7 @@ function eliminarProducto(){
 //Para la confirmación de publicar un producto
 function publicarProducto(){
   Swal.fire({
-    title: "Eliminar producto",
-    //text: '¿Quieres eliminar este producto?',
+    title: "Publicar producto",
     text: document.getElementById('nombreProducto2').innerText.toLocaleLowerCase(),
     focusConfirm: false,
     heightAuto: false,
